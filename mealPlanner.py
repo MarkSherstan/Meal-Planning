@@ -14,7 +14,7 @@ mealData = pd.read_csv('meals.csv',
             names = ['MAIN','SIDE'])
 
 
-# Process data, make two lists, and shuffle the order
+# Process data, make two unique lists, and shuffle the order
 mains = mealData.MAIN.dropna()
 mains = list(set(mains))
 random.shuffle(mains)
@@ -50,9 +50,10 @@ print
 
 # Print the instructions
 print('_______________________________________________________')
-print('If happy with the data press enter')
+print('If happy with the data press enter\n')
 print('To change a meal, enter the numeric day of the week:')
-print('    E.g. Monday = 1, Tuesday = 2 ... Sunday = 7')
+print('    E.g. Monday = 1, Tuesday = 2 ... Sunday = 7\n')
+print('To swap two days enter "swap" and follow the directions')
 print('_______________________________________________________')
 
 
@@ -62,7 +63,12 @@ counter = 7
 
 while userInput != "":
 
-    if int(userInput) == 1:
+    if userInput == "swap":
+        pos1 = input("Swap day: ")
+        pos2 = input("for day: ")
+        fields[pos1], fields[pos2] = fields[pos2], fields[pos1]
+        counter = counter - 1
+    elif int(userInput) == 1:
         fields[1] = mains[counter]
     elif int(userInput) == 2:
         fields[2] = mains[counter]
@@ -84,9 +90,11 @@ while userInput != "":
         print("Out of meal options")
         break
 
+    print
     newData = pd.DataFrame(columns=['Date','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'])
     newData.loc[weeklyData.tail(1).index.item()+1] = fields
     print(newData)
+    print
 
     counter = counter + 1
     userInput = raw_input("Enter your response: ")
