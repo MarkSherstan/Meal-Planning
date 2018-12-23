@@ -98,5 +98,4 @@ result = weeklyData.append(newData)
 
 # Save results to csv file
 with open('weeklyData.csv', 'a') as f:
-    f.write('\n')
     newData.to_csv(f, header=False, index=False)
