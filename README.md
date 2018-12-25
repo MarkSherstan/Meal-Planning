@@ -3,14 +3,15 @@ Automated meal planner using Python.
 
 
 ## To do
-* Swap locations of meals
 * Spacing of columns
+* Case sensative swapping???
 
 
 ## Ideas
-* PDFs of recipes with ingrediants
+* PDFs of recipes with ingredients
 * Make .exe
 * GUI
+* have an 8th spot for meals to be swapped around
 
 
 ## Use
