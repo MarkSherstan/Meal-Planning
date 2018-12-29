@@ -10,12 +10,13 @@ timeStamp = str(datetime.datetime.now().strftime("%Y-%m-%d"))
 
 # Read in CSV file of meal data
 mealData = pd.read_csv('meals.csv',
-            header = -1, # is this right???
+            header = None,
             names = ['MAIN'])
 
 sideData = pd.read_csv('sides.csv',
-            header = -1,
+            header = None,
             names = ['SIDES'])
+
 
 # Process data, make two unique lists, and shuffle the order
 mains = mealData.MAIN.dropna()
