@@ -8,7 +8,7 @@ from tkinter import *
 # Make a window to display GUI data
 window = Tk()
 window.title("Meal Planner")
-window.geometry('800x450')
+window.geometry('975x450')
 
 
 # Get current time time stamp
@@ -42,10 +42,10 @@ weeklyData = pd.read_csv('weeklyData.csv',
 
 
 # Put the days of the week in the GUI
-daysOfWeek = ['  Monday  ', '  Tuesday  ', '  Wednesday  ', '  Thursday  ', '  Friday  ', '  Saturday  ', '  Sunday  ']
+daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
 for i in range(len(daysOfWeek)):
-    lbl = Label(window, text=daysOfWeek[i], font=("Arial Bold", 20))
+    lbl = Label(window, text=daysOfWeek[i], width=12, font=("Arial Bold", 20))
     lbl.grid(column=i, row=0)
 
 
@@ -74,82 +74,93 @@ lbl = Label(window, text=""); lbl.grid(column=0, row=9)
 # Find this weeks meals and place in the GUI
 fields = [mains[0], mains[1], mains[2], mains[3], mains[4], mains[5], mains[6]]
 
-daysOfWeek = ['  Monday  ', '  Tuesday  ', '  Wednesday  ', '  Thursday  ', '  Friday  ', '  Saturday  ', '  Sunday  ']
-
 for i in range(len(daysOfWeek)):
     lbl = Label(window, text=daysOfWeek[i], font=("Arial Bold", 20))
-    lbl2 = Label(window, text=fields[i], font=("Arial", 14))
     lbl.grid(column=i, row=10)
-    lbl2.grid(column=i, row=11)
 
 
-# Define buttons for changing a meal
+# Drop down selectors
+monday = StringVar(window)
+monday.set(mains[0]) # default value
+w = OptionMenu(window, monday, *mains)
+w.grid(column=0, row=11, sticky="ew")
+
+tuesday = StringVar(window)
+tuesday.set(mains[1]) # default value
+w = OptionMenu(window, tuesday, *mains)
+w.grid(column=1, row=11, sticky="ew")
+
+wednesday = StringVar(window)
+wednesday.set(mains[2]) # default value
+w = OptionMenu(window, wednesday, *mains)
+w.grid(column=2, row=11, sticky="ew")
+
+thursday = StringVar(window)
+thursday.set(mains[3]) # default value
+w = OptionMenu(window, thursday, *mains)
+w.grid(column=3, row=11, sticky="ew")
+
+friday = StringVar(window)
+friday.set(mains[4]) # default value
+w = OptionMenu(window, friday, *mains)
+w.grid(column=4, row=11, sticky="ew")
+
+saturday = StringVar(window)
+saturday.set(mains[5]) # default value
+w = OptionMenu(window, saturday, *mains)
+w.grid(column=5, row=11, sticky="ew")
+
+sunday = StringVar(window)
+sunday.set(mains[6]) # default value
+w = OptionMenu(window, sunday, *mains)
+w.grid(column=6, row=11, sticky="ew")
+
+
+# Define buttons for randomizing a meal
 counter = 6
 
 def clicked0():
     global counter
     counter += 1
-    fields[0] = mains[counter]
-    lbl = Label(window, text="\t\t", bg="white"); lbl.grid(column=0, row=11)
-    lbl = Label(window, text=fields[0], font=("Arial", 14))
-    lbl.grid(column=0, row=11)
+    monday.set(mains[counter])
 
 def clicked1():
     global counter
     counter += 1
-    fields[1] = mains[counter]
-    lbl = Label(window, text="\t\t", bg="white"); lbl.grid(column=1, row=11)
-    lbl = Label(window, text=fields[1], font=("Arial", 14))
-    lbl.grid(column=1, row=11)
+    tuesday.set(mains[counter])
 
 def clicked2():
     global counter
     counter += 1
-    fields[2] = mains[counter]
-    lbl = Label(window, text="\t\t", bg="white"); lbl.grid(column=2, row=11)
-    lbl = Label(window, text=fields[2], font=("Arial", 14))
-    lbl.grid(column=2, row=11)
+    wednesday.set(mains[counter])
 
 def clicked3():
     global counter
     counter += 1
-    fields[3] = mains[counter]
-    lbl = Label(window, text="\t\t", bg="white"); lbl.grid(column=3, row=11)
-    lbl = Label(window, text=fields[3], font=("Arial", 14))
-    lbl.grid(column=3, row=11)
+    thursday.set(mains[counter])
 
 def clicked4():
     global counter
     counter += 1
-    fields[4] = mains[counter]
-    lbl = Label(window, text="\t\t", bg="white"); lbl.grid(column=4, row=11)
-    lbl = Label(window, text=fields[4], font=("Arial", 14))
-    lbl.grid(column=4, row=11)
+    friday.set(mains[counter])
 
 def clicked5():
     global counter
     counter += 1
-    fields[5] = mains[counter]
-    lbl = Label(window, text="\t\t", bg="white"); lbl.grid(column=5, row=11)
-    lbl = Label(window, text=fields[5], font=("Arial", 14))
-    lbl.grid(column=5, row=11)
+    saturday.set(mains[counter])
 
 def clicked6():
     global counter
     counter += 1
-    fields[6] = mains[counter]
-    lbl = Label(window, text="\t\t", bg="white"); lbl.grid(column=6, row=11)
-    lbl = Label(window, text=fields[6], font=("Arial", 14))
-    lbl.grid(column=6, row=11)
+    sunday.set(mains[counter])
 
-
-btn = Button(window, text="Change", command=clicked0); btn.grid(column=0, row=12)
-btn = Button(window, text="Change", command=clicked1); btn.grid(column=1, row=12)
-btn = Button(window, text="Change", command=clicked2); btn.grid(column=2, row=12)
-btn = Button(window, text="Change", command=clicked3); btn.grid(column=3, row=12)
-btn = Button(window, text="Change", command=clicked4); btn.grid(column=4, row=12)
-btn = Button(window, text="Change", command=clicked5); btn.grid(column=5, row=12)
-btn = Button(window, text="Change", command=clicked6); btn.grid(column=6, row=12)
+btn = Button(window, text="Randomize", command=clicked0); btn.grid(column=0, row=12)
+btn = Button(window, text="Randomize", command=clicked1); btn.grid(column=1, row=12)
+btn = Button(window, text="Randomize", command=clicked2); btn.grid(column=2, row=12)
+btn = Button(window, text="Randomize", command=clicked3); btn.grid(column=3, row=12)
+btn = Button(window, text="Randomize", command=clicked4); btn.grid(column=4, row=12)
+btn = Button(window, text="Randomize", command=clicked5); btn.grid(column=5, row=12)
+btn = Button(window, text="Randomize", command=clicked6); btn.grid(column=6, row=12)
 
 
 # Add some white space in GUI
@@ -158,7 +169,7 @@ lbl = Label(window, text=""); lbl.grid(column=0, row=13)
 
 # Add swapping two days of meals
 lbl = Label(window, text="Swap day"); lbl.grid(column=0, row=14, sticky="e")
-lbl = Label(window, text="   Enter days to swap E.g. Monday = 1, Tuesday = 2 ... Sunday = 7"); lbl.grid(column=2, row=14, columnspan=4, sticky="w")
+#lbl = Label(window, text="   Enter days to swap E.g. Monday = 1, Tuesday = 2 ... Sunday = 7"); lbl.grid(column=2, row=14, columnspan=4, sticky="w")
 lbl = Label(window, text="with"); lbl.grid(column=0, row=15, sticky="e")
 
 pos1 = Entry(window,width=10); pos1.grid(column=1, row=14)
@@ -206,6 +217,7 @@ def saveAndExit():
 
 btn = Button(window, text="Save and Exit", command=saveAndExit)
 btn.grid(column=3, row=19)
+
 
 # Run forever until destroyed
 window.mainloop()
