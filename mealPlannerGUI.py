@@ -82,37 +82,37 @@ for i in range(len(daysOfWeek)):
 # Drop down selectors
 monday = StringVar(window)
 monday.set(mains[0]) # default value
-w = OptionMenu(window, monday, *mains)
+w = OptionMenu(window, monday, *sorted(mains))
 w.grid(column=0, row=11, sticky="ew")
 
 tuesday = StringVar(window)
 tuesday.set(mains[1]) # default value
-w = OptionMenu(window, tuesday, *mains)
+w = OptionMenu(window, tuesday, *sorted(mains))
 w.grid(column=1, row=11, sticky="ew")
 
 wednesday = StringVar(window)
 wednesday.set(mains[2]) # default value
-w = OptionMenu(window, wednesday, *mains)
+w = OptionMenu(window, wednesday, *sorted(mains))
 w.grid(column=2, row=11, sticky="ew")
 
 thursday = StringVar(window)
 thursday.set(mains[3]) # default value
-w = OptionMenu(window, thursday, *mains)
+w = OptionMenu(window, thursday, *sorted(mains))
 w.grid(column=3, row=11, sticky="ew")
 
 friday = StringVar(window)
 friday.set(mains[4]) # default value
-w = OptionMenu(window, friday, *mains)
+w = OptionMenu(window, friday, *sorted(mains))
 w.grid(column=4, row=11, sticky="ew")
 
 saturday = StringVar(window)
 saturday.set(mains[5]) # default value
-w = OptionMenu(window, saturday, *mains)
+w = OptionMenu(window, saturday, *sorted(mains))
 w.grid(column=5, row=11, sticky="ew")
 
 sunday = StringVar(window)
 sunday.set(mains[6]) # default value
-w = OptionMenu(window, sunday, *mains)
+w = OptionMenu(window, sunday, *sorted(mains))
 w.grid(column=6, row=11, sticky="ew")
 
 
