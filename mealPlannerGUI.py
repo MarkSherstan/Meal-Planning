@@ -11,10 +11,6 @@ window.title("Meal Planner")
 window.geometry('975x450')
 
 
-# Get current time time stamp
-timeStamp = str(datetime.datetime.now().strftime("%Y-%m-%d"))
-
-
 # Read in CSV file of meal data
 mealData = pd.read_csv('meals.csv',
             header = None,
@@ -59,20 +55,16 @@ for i in range(-4,0,1):
 
         b = Label(window, anchor="w", text=out, font=("Arial", 14))
         b.grid(row=rowIdx, column=columnIdx)
-        #b.grid(row=rowIdx, column=columnIdx, sticky="w")
         columnIdx += 1
 
     rowIdx += 1
     columnIdx = 0
 
 
-# Add some white space in GUI
+# Add some white space in GUI and add the days of the week again
 lbl = Label(window, text=""); lbl.grid(column=0, row=8)
 lbl = Label(window, text=""); lbl.grid(column=0, row=9)
 
-
-# Find this weeks meals and place in the GUI
-fields = [mains[0], mains[1], mains[2], mains[3], mains[4], mains[5], mains[6]]
 
 for i in range(len(daysOfWeek)):
     lbl = Label(window, text=daysOfWeek[i], font=("Arial Bold", 20))
@@ -169,7 +161,10 @@ lbl = Label(window, text=""); lbl.grid(column=0, row=13)
 
 # Add swapping two days of meals
 lbl = Label(window, text="Swap day"); lbl.grid(column=0, row=14, sticky="e")
-#lbl = Label(window, text="   Enter days to swap E.g. Monday = 1, Tuesday = 2 ... Sunday = 7"); lbl.grid(column=2, row=14, columnspan=4, sticky="w")
+
+lbl = Label(window, text="   Enter days to swap E.g. Monday = 1, Tuesday = 2 ... Sunday = 7");
+lbl.grid(column=2, row=14, columnspan=4, sticky="w")
+
 lbl = Label(window, text="with"); lbl.grid(column=0, row=15, sticky="e")
 
 pos1 = Entry(window,width=10); pos1.grid(column=1, row=14)
@@ -202,9 +197,9 @@ lbl = Label(window, text=""); lbl.grid(column=0, row=18)
 
 # Save the data and exit
 def saveAndExit():
-    global timeStamp
-    global fields
-    fields.insert(0, timeStamp)
+    timeStamp = str(datetime.datetime.now().strftime("%Y-%m-%d"))
+
+    fields = [timeStamp, monday.get(), tuesday.get(), wednesday.get(), thursday.get(), friday.get(), saturday.get(), sunday.get()]
 
     newData = pd.DataFrame(columns=['Date','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'])
     newData.loc[weeklyData.tail(1).index.item()+1] = fields
