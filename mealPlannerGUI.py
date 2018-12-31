@@ -4,7 +4,7 @@ import random
 import datetime
 import tkinter
 from tkinter import *
-from tkinter import ttk
+from tkinter import ttk, messagebox
 
 
 # Make a window to display GUI data
@@ -160,8 +160,6 @@ style.configure('TCheckbutton',
                 foreground=windowBgColor,
                 focuscolor=windowBgColor)
 
-style.configure('TCheckbutton',selectcolor="green")
-
 style.map('TCheckbutton',
         foreground=[('disabled', windowBgColor),
                     ('pressed', windowBgColor),
@@ -175,48 +173,32 @@ style.map('TCheckbutton',
                 ('!pressed', 'ridge')])
 
 
-# Add check boxes for swapping days
-def checkBox():
-    checkBoxes = [chk0.instate(['selected']), chk1.instate(['selected']),
-                  chk2.instate(['selected']), chk3.instate(['selected']),
-                  chk4.instate(['selected']), chk5.instate(['selected']),
-                  chk6.instate(['selected'])]
 
-    if sum(checkBoxes) == 2:
-        for i in range(len(checkBoxes)):
-            if globals()['chk' + str(i)].instate(['selected']) == False:
-                globals()['chk' + str(i)].state(['disabled'])
-    else:
-        for i in range(len(checkBoxes)):
-            globals()['chk' + str(i)].state(['!disabled'])
-
-
-
-chk0 = ttk.Checkbutton(window, command=checkBox)
+chk0 = ttk.Checkbutton(window)
 chk0.state(['!alternate','!selected'])
 chk0.grid(column=0, row=13)
 
-chk1 = ttk.Checkbutton(window, command=checkBox)
+chk1 = ttk.Checkbutton(window)
 chk1.state(['!alternate','!selected'])
 chk1.grid(column=1, row=13)
 
-chk2 = ttk.Checkbutton(window, command=checkBox)
+chk2 = ttk.Checkbutton(window)
 chk2.state(['!alternate','!selected'])
 chk2.grid(column=2, row=13)
 
-chk3 = ttk.Checkbutton(window, command=checkBox)
+chk3 = ttk.Checkbutton(window)
 chk3.state(['!alternate','!selected'])
 chk3.grid(column=3, row=13)
 
-chk4 = ttk.Checkbutton(window, command=checkBox)
+chk4 = ttk.Checkbutton(window)
 chk4.state(['!alternate','!selected'])
 chk4.grid(column=4, row=13)
 
-chk5 = ttk.Checkbutton(window, command=checkBox)
+chk5 = ttk.Checkbutton(window)
 chk5.state(['!alternate','!selected'])
 chk5.grid(column=5, row=13)
 
-chk6 = ttk.Checkbutton(window, command=checkBox)
+chk6 = ttk.Checkbutton(window)
 chk6.state(['!alternate','!selected'])
 chk6.grid(column=6, row=13)
 
@@ -269,11 +251,11 @@ btn = Button(window, text="Randomize", command=clicked6); btn.grid(column=6, row
 
 
 # Add some white space in GUI
-lbl = Label(window, text=""); lbl.grid(column=0, row=14)
+# lbl = Label(window, text=""); lbl.grid(column=0, row=14)
 lbl = Label(window, text=""); lbl.grid(column=0, row=15)
 
-# Swap days
-def swap():
+# Swap meals
+def swapMeals():
     checkBoxes = [chk0.instate(['selected']), chk1.instate(['selected']),
                   chk2.instate(['selected']), chk3.instate(['selected']),
                   chk4.instate(['selected']), chk5.instate(['selected']),
@@ -297,12 +279,43 @@ def swap():
         # Clear the checkboxes and enable them all again
         for i in range(7):
             globals()['chk' + str(i)].state(['!disabled','!selected'])
+    else:
+        messagebox.showerror('Error', 'Must select exactly two days in order to swap')
 
 
-btn = Button(window, text="Swap 2 Meals", command=swap)
+# Swap sides
+def swapSides():
+    checkBoxes = [chk0.instate(['selected']), chk1.instate(['selected']),
+                  chk2.instate(['selected']), chk3.instate(['selected']),
+                  chk4.instate(['selected']), chk5.instate(['selected']),
+                  chk6.instate(['selected'])]
+
+    currentSides = [mondaySide.get(), tuesdaySide.get(), wednesdaySide.get(), thursdaySide.get(), fridaySide.get(), saturdaySide.get(), sundaySide.get()]
+
+    swapIdx = np.where(checkBoxes)
+
+    if len(swapIdx[0]) == 2:
+        currentSides[swapIdx[0][0]], currentSides[swapIdx[0][1]] = currentSides[swapIdx[0][1]], currentSides[swapIdx[0][0]]
+
+        mondaySide.set(currentSides[0])
+        tuesdaySide.set(currentSides[1])
+        wednesdaySide.set(currentSides[2])
+        thursdaySide.set(currentSides[3])
+        fridaySide.set(currentSides[4])
+        saturdaySide.set(currentSides[5])
+        sundaySide.set(currentSides[6])
+
+        # Clear the checkboxes and enable them all again
+        for i in range(7):
+            globals()['chk' + str(i)].state(['!disabled','!selected'])
+    else:
+        messagebox.showerror('Error', 'Must select exactly two days in order to swap')
+
+
+btn = Button(window, text="Swap Meals", command=swapMeals)
 btn.grid(column=1, row=16)
 
-btn = Button(window, text="Swap 2 Sides", command=swap)
+btn = Button(window, text="Swap Sides", command=swapSides)
 btn.grid(column=5, row=16)
 
 
