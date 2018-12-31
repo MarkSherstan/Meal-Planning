@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import random
 import datetime
+import smtplib
 import tkinter
 from tkinter import *
 from tkinter import ttk, messagebox, scrolledtext
@@ -14,7 +15,7 @@ from tkinter import ttk, messagebox, scrolledtext
 # Make a window to display GUI data
 window = Tk()
 window.title("Meal Planner")
-window.geometry('1250x500')
+window.geometry('1250x450')
 
 
 ################################################################################
@@ -230,7 +231,7 @@ lbl = Label(window, text="", width=5); lbl.grid(column=7, row=0)
 lbl = Label(window, text="Ingredients", font=("Arial Bold", 20));
 lbl.grid(column=8, row=0)
 
-txt = scrolledtext.ScrolledText(window,width=20,height=20)
+txt = scrolledtext.ScrolledText(window,width=20,height=17)
 txt.grid(column=8,row=1,rowspan=15)
 
 
@@ -260,6 +261,9 @@ def dispIngrediants():
         txt.insert(INSERT, ingrediantsSorted[i]+"\n")
         txt.configure(font=("Arial"))
 
+    global ingrediantList
+    ingrediantList = ingrediantsSorted
+    return ingrediantList
 
 dispIngrediants()
 
@@ -417,6 +421,8 @@ lbl = Label(window, text=""); lbl.grid(column=0, row=18)
 
 # Save the data and exit
 def saveAndExit():
+    global ingrediantList
+
     timeStamp = str(datetime.datetime.now().strftime("%Y-%m-%d"))
 
     fields = [timeStamp, monday.get(), tuesday.get(), wednesday.get(), thursday.get(), friday.get(), saturday.get(), sunday.get()]
@@ -424,8 +430,38 @@ def saveAndExit():
     newData = pd.DataFrame(columns=['Date','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'])
     newData.loc[weeklyData.tail(1).index.item()+1] = fields
 
+    # Write to CSV for next week
     with open('weeklyData.csv', 'a') as f:
         newData.to_csv(f, header=False, index=False)
+
+
+    if ent.get() != "Email":
+        # Send email
+        gmail_user = 'meal.Planner.python.2018@gmail.com'
+        gmail_password = ''
+
+        sent_from = gmail_user
+        to = ent.get()
+
+        email_text = timeStamp + "\n\n" + \
+                    'Monday: ' + fields[1] + " with " + mondaySide.get() + "\n" + \
+                    'Tuesday: ' + fields[2] + " with " + tuesdaySide.get() + "\n" + \
+                    'Wednesday: ' + fields[3] + " with " + wednesdaySide.get() + "\n" + \
+                    'Thursday: ' + fields[4] + " with " + thursdaySide.get() + "\n" + \
+                    'Friday: ' + fields[5] + " with " + fridaySide.get() + "\n" + \
+                    'Saturday: ' + fields[6] + " with " + saturdaySide.get() + "\n" + \
+                    'Sunday: ' + fields[7] + " with " + sundaySide.get() + "\n\n\n" + \
+                    "Ingredients:" + "\n\n" + '\n'.join(ingrediantList)
+
+        try:
+            server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+            server.ehlo()
+            server.login(gmail_user, gmail_password)
+            server.sendmail(sent_from, to, email_text)
+            server.close()
+        except:
+            messagebox.showerror('Error', 'Email not sent')
+
 
     window.destroy()
 
@@ -433,6 +469,12 @@ def saveAndExit():
 
 btn = Button(window, text="Save and Exit", command=saveAndExit)
 btn.grid(column=3, row=19)
+
+
+ent = Entry(window,width=12,textvariable="email")
+ent.insert(INSERT, "Email")
+ent.configure(font=("Arial"))
+ent.grid(column=3, row=20)
 
 
 ################################################################################
