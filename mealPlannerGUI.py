@@ -2,7 +2,9 @@ import numpy as np
 import pandas as pd
 import random
 import datetime
+import tkinter
 from tkinter import *
+from tkinter import ttk
 
 
 # Make a window to display GUI data
@@ -73,39 +75,111 @@ for i in range(len(daysOfWeek)):
 
 # Drop down selectors
 monday = StringVar(window)
-monday.set(mains[0]) # default value
+monday.set(mains[0])
 w = OptionMenu(window, monday, *sorted(mains))
 w.grid(column=0, row=11, sticky="ew")
 
 tuesday = StringVar(window)
-tuesday.set(mains[1]) # default value
+tuesday.set(mains[1])
 w = OptionMenu(window, tuesday, *sorted(mains))
 w.grid(column=1, row=11, sticky="ew")
 
 wednesday = StringVar(window)
-wednesday.set(mains[2]) # default value
+wednesday.set(mains[2])
 w = OptionMenu(window, wednesday, *sorted(mains))
 w.grid(column=2, row=11, sticky="ew")
 
 thursday = StringVar(window)
-thursday.set(mains[3]) # default value
+thursday.set(mains[3])
 w = OptionMenu(window, thursday, *sorted(mains))
 w.grid(column=3, row=11, sticky="ew")
 
 friday = StringVar(window)
-friday.set(mains[4]) # default value
+friday.set(mains[4])
 w = OptionMenu(window, friday, *sorted(mains))
 w.grid(column=4, row=11, sticky="ew")
 
 saturday = StringVar(window)
-saturday.set(mains[5]) # default value
+saturday.set(mains[5])
 w = OptionMenu(window, saturday, *sorted(mains))
 w.grid(column=5, row=11, sticky="ew")
 
 sunday = StringVar(window)
-sunday.set(mains[6]) # default value
+sunday.set(mains[6])
 w = OptionMenu(window, sunday, *sorted(mains))
 w.grid(column=6, row=11, sticky="ew")
+
+
+# Set up style for buttons
+windowBgColor = window.cget("background")
+
+style = ttk.Style()
+style.theme_use('default')
+
+style.configure('TCheckbutton',
+                background=windowBgColor,
+                foreground=windowBgColor,
+                focuscolor=windowBgColor)
+
+style.configure('TCheckbutton',selectcolor="green")
+
+style.map('TCheckbutton',
+        foreground=[('disabled', windowBgColor),
+                    ('pressed', windowBgColor),
+                    ('active', windowBgColor)],
+        background=[('disabled', windowBgColor),
+                    ('pressed', '!focus', windowBgColor),
+                    ('active', windowBgColor)],
+        highlightcolor=[('focus', windowBgColor),
+                        ('!focus', windowBgColor)],
+        relief=[('pressed', 'groove'),
+                ('!pressed', 'ridge')])
+
+
+# Add check boxes for swapping days
+def check():
+    checkBoxes = [chk0.instate(['selected']), chk1.instate(['selected']),
+                  chk2.instate(['selected']), chk3.instate(['selected']),
+                  chk4.instate(['selected']), chk5.instate(['selected']),
+                  chk6.instate(['selected'])]
+
+    if sum(checkBoxes) == 2:
+        for i in range(len(checkBoxes)):
+            if globals()['chk' + str(i)].instate(['selected']) == False:
+                globals()['chk' + str(i)].state(['disabled'])
+    else:
+        for i in range(len(checkBoxes)):
+            globals()['chk' + str(i)].state(['!disabled'])
+
+
+
+chk0 = ttk.Checkbutton(window, command=check)
+chk0.state(['!alternate','!selected'])
+chk0.grid(column=0, row=12)
+
+chk1 = ttk.Checkbutton(window, command=check)
+chk1.state(['!alternate','!selected'])
+chk1.grid(column=1, row=12)
+
+chk2 = ttk.Checkbutton(window, command=check)
+chk2.state(['!alternate','!selected'])
+chk2.grid(column=2, row=12)
+
+chk3 = ttk.Checkbutton(window, command=check)
+chk3.state(['!alternate','!selected'])
+chk3.grid(column=3, row=12)
+
+chk4 = ttk.Checkbutton(window, command=check)
+chk4.state(['!alternate','!selected'])
+chk4.grid(column=4, row=12)
+
+chk5 = ttk.Checkbutton(window, command=check)
+chk5.state(['!alternate','!selected'])
+chk5.grid(column=5, row=12)
+
+chk6 = ttk.Checkbutton(window, command=check)
+chk6.state(['!alternate','!selected'])
+chk6.grid(column=6, row=12)
 
 
 # Define buttons for randomizing a meal
@@ -146,48 +220,51 @@ def clicked6():
     counter += 1
     sunday.set(mains[counter])
 
-btn = Button(window, text="Randomize", command=clicked0); btn.grid(column=0, row=12)
-btn = Button(window, text="Randomize", command=clicked1); btn.grid(column=1, row=12)
-btn = Button(window, text="Randomize", command=clicked2); btn.grid(column=2, row=12)
-btn = Button(window, text="Randomize", command=clicked3); btn.grid(column=3, row=12)
-btn = Button(window, text="Randomize", command=clicked4); btn.grid(column=4, row=12)
-btn = Button(window, text="Randomize", command=clicked5); btn.grid(column=5, row=12)
-btn = Button(window, text="Randomize", command=clicked6); btn.grid(column=6, row=12)
+btn = Button(window, text="Randomize", command=clicked0); btn.grid(column=0, row=13)
+btn = Button(window, text="Randomize", command=clicked1); btn.grid(column=1, row=13)
+btn = Button(window, text="Randomize", command=clicked2); btn.grid(column=2, row=13)
+btn = Button(window, text="Randomize", command=clicked3); btn.grid(column=3, row=13)
+btn = Button(window, text="Randomize", command=clicked4); btn.grid(column=4, row=13)
+btn = Button(window, text="Randomize", command=clicked5); btn.grid(column=5, row=13)
+btn = Button(window, text="Randomize", command=clicked6); btn.grid(column=6, row=13)
 
 
 # Add some white space in GUI
-lbl = Label(window, text=""); lbl.grid(column=0, row=13)
+lbl = Label(window, text=""); lbl.grid(column=0, row=14)
+lbl = Label(window, text=""); lbl.grid(column=0, row=15)
 
-
-# Add swapping two days of meals
-lbl = Label(window, text="Swap day"); lbl.grid(column=0, row=14, sticky="e")
-
-lbl = Label(window, text="   Enter days to swap E.g. Monday = 1, Tuesday = 2 ... Sunday = 7");
-lbl.grid(column=2, row=14, columnspan=4, sticky="w")
-
-lbl = Label(window, text="with"); lbl.grid(column=0, row=15, sticky="e")
-
-pos1 = Entry(window,width=10); pos1.grid(column=1, row=14)
-pos2 = Entry(window,width=10); pos2.grid(column=1, row=15)
-
+# Swap days
 def swap():
-    idx1 = int(pos1.get())-1
-    idx2 = int(pos2.get())-1
-    fields[idx1], fields[idx2] = fields[idx2], fields[idx1]
+    checkBoxes = [chk0.instate(['selected']), chk1.instate(['selected']),
+                  chk2.instate(['selected']), chk3.instate(['selected']),
+                  chk4.instate(['selected']), chk5.instate(['selected']),
+                  chk6.instate(['selected'])]
 
-    lbl = Label(window, text="\t\t", bg="white"); lbl.grid(column=idx1, row=11)
-    lbl = Label(window, text=fields[idx1], font=("Arial", 14))
-    lbl.grid(column=idx1, row=11)
+    currentMeals = [monday.get(), tuesday.get(), wednesday.get(), thursday.get(), friday.get(), saturday.get(), sunday.get()]
 
-    lbl = Label(window, text="\t\t", bg="white"); lbl.grid(column=idx2, row=11)
-    lbl = Label(window, text=fields[idx2], font=("Arial", 14))
-    lbl.grid(column=idx2, row=11)
+    swapIdx = np.where(checkBoxes)
 
-    pos1.delete(0,END)
-    pos2.delete(0,END)
+    if len(swapIdx[0]) == 2:
+        currentMeals[swapIdx[0][0]], currentMeals[swapIdx[0][1]] = currentMeals[swapIdx[0][1]], currentMeals[swapIdx[0][0]]
 
-btn = Button(window, text="Execute", command=swap)
+        monday.set(currentMeals[0])
+        tuesday.set(currentMeals[1])
+        wednesday.set(currentMeals[2])
+        thursday.set(currentMeals[3])
+        friday.set(currentMeals[4])
+        saturday.set(currentMeals[5])
+        sunday.set(currentMeals[6])
+
+        # Clear the checkboxes and enable them all again
+        for i in range(7):
+            globals()['chk' + str(i)].state(['!disabled','!selected'])
+
+
+btn = Button(window, text="Swap 2 Meals", command=swap)
 btn.grid(column=1, row=16)
+
+btn = Button(window, text="Swap 2 Sides", command=swap)
+btn.grid(column=5, row=16)
 
 
 # Add some white space in GUI
@@ -210,8 +287,10 @@ def saveAndExit():
     window.destroy()
 
 
+
 btn = Button(window, text="Save and Exit", command=saveAndExit)
 btn.grid(column=3, row=19)
+
 
 
 # Run forever until destroyed
