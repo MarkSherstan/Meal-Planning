@@ -29,12 +29,14 @@ sideData = pd.read_csv('sides.csv', header = None)
 
 # Process data, make two unique lists, and shuffle the order
 mains = mealData[mealData.columns[0]].dropna()
-mains = list(set(mains))
+mains = list(set(mains.iloc[1:-1]))
 random.shuffle(mains)
+mains.append("---")
 
 sides = sideData[sideData.columns[0]].dropna()
-sides = list(set(sides))
+sides = list(set(sides.iloc[1:-1]))
 random.shuffle(sides)
+sides.append("---")
 
 
 # Read in CSV file of data
