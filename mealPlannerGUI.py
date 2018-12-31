@@ -4,7 +4,7 @@ import random
 import datetime
 import tkinter
 from tkinter import *
-from tkinter import ttk, messagebox
+from tkinter import ttk, messagebox, scrolledtext
 
 
 ################################################################################
@@ -14,7 +14,7 @@ from tkinter import ttk, messagebox
 # Make a window to display GUI data
 window = Tk()
 window.title("Meal Planner")
-window.geometry('975x450')
+window.geometry('1250x500')
 
 
 ################################################################################
@@ -22,21 +22,17 @@ window.geometry('975x450')
 ################################################################################
 
 # Read in CSV file of meal data
-mealData = pd.read_csv('meals.csv',
-            header = None,
-            names = ['MAIN'])
+mealData = pd.read_csv('meals.csv', header = None)
 
-sideData = pd.read_csv('sides.csv',
-            header = None,
-            names = ['SIDES'])
+sideData = pd.read_csv('sides.csv', header = None)
 
 
 # Process data, make two unique lists, and shuffle the order
-mains = mealData.MAIN.dropna()
+mains = mealData[mealData.columns[0]].dropna()
 mains = list(set(mains))
 random.shuffle(mains)
 
-sides = sideData.SIDES.dropna()
+sides = sideData[sideData.columns[0]].dropna()
 sides = list(set(sides))
 random.shuffle(sides)
 
@@ -223,6 +219,49 @@ chk6.grid(column=6, row=13)
 
 
 ################################################################################
+# Put ingrediant data here --> this should be a function called on each button press and first instance
+################################################################################
+
+# Add some white space in GUI
+lbl = Label(window, text="", width=5); lbl.grid(column=7, row=0)
+
+lbl = Label(window, text="Ingredients", font=("Arial Bold", 20));
+lbl.grid(column=8, row=0)
+
+txt = scrolledtext.ScrolledText(window,width=20,height=20)
+txt.grid(column=8,row=1,rowspan=15)
+
+
+def dispIngrediants():
+    txt.delete('1.0', END)
+
+    currentMeals = [monday.get(), tuesday.get(), wednesday.get(), thursday.get(), friday.get(), saturday.get(), sunday.get()]
+    currentSides = [mondaySide.get(), tuesdaySide.get(), wednesdaySide.get(), thursdaySide.get(), fridaySide.get(), saturdaySide.get(), sundaySide.get()]
+
+    ingrediants = []
+
+    for i in range(7):
+        mealDataIdx = list(mealData[mealData.columns[0]]).index(currentMeals[i])
+        sideDataIdx = list(sideData[sideData.columns[0]]).index(currentSides[i])
+
+        mealIngrediantsNew = list(mealData.iloc[mealDataIdx,1:-1].dropna())
+        sideIngrediantsNew = list(sideData.iloc[sideDataIdx,1:-1].dropna())
+
+        ingrediants.append(mealIngrediantsNew)
+        ingrediants.append(sideIngrediantsNew)
+
+
+    ingrediants = list(set(sum(ingrediants, [])))
+    ingrediantsSorted = sorted(ingrediants, key=str.lower)
+
+    for i in range(len(ingrediantsSorted)):
+        txt.insert(INSERT, ingrediantsSorted[i]+"\n")
+        txt.configure(font=("Arial"))
+
+
+dispIngrediants()
+
+################################################################################
 # Define push button functions for swapping meals and sides
 ################################################################################
 
@@ -326,6 +365,8 @@ def randomizeMeals():
         for i in range(7):
             globals()['chk' + str(i)].state(['!disabled','!selected'])
 
+    dispIngrediants()
+
 
 def randomizeSides():
     global counterSides
@@ -350,6 +391,8 @@ def randomizeSides():
         # Clear the checkboxes and enable them all again
         for i in range(7):
             globals()['chk' + str(i)].state(['!disabled','!selected'])
+
+    dispIngrediants()
 
 
 btn = Button(window, text="Randomize Meals", command=randomizeMeals)
@@ -388,14 +431,6 @@ def saveAndExit():
 
 btn = Button(window, text="Save and Exit", command=saveAndExit)
 btn.grid(column=3, row=19)
-
-
-################################################################################
-# Put ingrediant data here --> Set
-################################################################################
-
-
-
 
 
 ################################################################################
