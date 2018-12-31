@@ -73,7 +73,7 @@ for i in range(len(daysOfWeek)):
     lbl.grid(column=i, row=10)
 
 
-# Drop down selectors
+# Drop down selectors for mains
 monday = StringVar(window)
 monday.set(mains[0])
 w = OptionMenu(window, monday, *sorted(mains))
@@ -110,6 +110,45 @@ w = OptionMenu(window, sunday, *sorted(mains))
 w.grid(column=6, row=11, sticky="ew")
 
 
+
+# Drop down selectors for sides
+mondaySide = StringVar(window)
+mondaySide.set(sides[0])
+w = OptionMenu(window, mondaySide, *sorted(sides))
+w.grid(column=0, row=12, sticky="ew")
+
+tuesdaySide = StringVar(window)
+tuesdaySide.set(sides[1])
+w = OptionMenu(window, tuesdaySide, *sorted(sides))
+w.grid(column=1, row=12, sticky="ew")
+
+wednesdaySide = StringVar(window)
+wednesdaySide.set(sides[2])
+w = OptionMenu(window, wednesdaySide, *sorted(sides))
+w.grid(column=2, row=12, sticky="ew")
+
+thursdaySide = StringVar(window)
+thursdaySide.set(sides[3])
+w = OptionMenu(window, thursdaySide, *sorted(sides))
+w.grid(column=3, row=12, sticky="ew")
+
+fridaySide = StringVar(window)
+fridaySide.set(sides[4])
+w = OptionMenu(window, fridaySide, *sorted(sides))
+w.grid(column=4, row=12, sticky="ew")
+
+saturdaySide = StringVar(window)
+saturdaySide.set(sides[5])
+w = OptionMenu(window, saturdaySide, *sorted(sides))
+w.grid(column=5, row=12, sticky="ew")
+
+sundaySide = StringVar(window)
+sundaySide.set(sides[6])
+w = OptionMenu(window, sundaySide, *sorted(sides))
+w.grid(column=6, row=12, sticky="ew")
+
+
+
 # Set up style for buttons
 windowBgColor = window.cget("background")
 
@@ -137,7 +176,7 @@ style.map('TCheckbutton',
 
 
 # Add check boxes for swapping days
-def check():
+def checkBox():
     checkBoxes = [chk0.instate(['selected']), chk1.instate(['selected']),
                   chk2.instate(['selected']), chk3.instate(['selected']),
                   chk4.instate(['selected']), chk5.instate(['selected']),
@@ -153,33 +192,33 @@ def check():
 
 
 
-chk0 = ttk.Checkbutton(window, command=check)
+chk0 = ttk.Checkbutton(window, command=checkBox)
 chk0.state(['!alternate','!selected'])
-chk0.grid(column=0, row=12)
+chk0.grid(column=0, row=13)
 
-chk1 = ttk.Checkbutton(window, command=check)
+chk1 = ttk.Checkbutton(window, command=checkBox)
 chk1.state(['!alternate','!selected'])
-chk1.grid(column=1, row=12)
+chk1.grid(column=1, row=13)
 
-chk2 = ttk.Checkbutton(window, command=check)
+chk2 = ttk.Checkbutton(window, command=checkBox)
 chk2.state(['!alternate','!selected'])
-chk2.grid(column=2, row=12)
+chk2.grid(column=2, row=13)
 
-chk3 = ttk.Checkbutton(window, command=check)
+chk3 = ttk.Checkbutton(window, command=checkBox)
 chk3.state(['!alternate','!selected'])
-chk3.grid(column=3, row=12)
+chk3.grid(column=3, row=13)
 
-chk4 = ttk.Checkbutton(window, command=check)
+chk4 = ttk.Checkbutton(window, command=checkBox)
 chk4.state(['!alternate','!selected'])
-chk4.grid(column=4, row=12)
+chk4.grid(column=4, row=13)
 
-chk5 = ttk.Checkbutton(window, command=check)
+chk5 = ttk.Checkbutton(window, command=checkBox)
 chk5.state(['!alternate','!selected'])
-chk5.grid(column=5, row=12)
+chk5.grid(column=5, row=13)
 
-chk6 = ttk.Checkbutton(window, command=check)
+chk6 = ttk.Checkbutton(window, command=checkBox)
 chk6.state(['!alternate','!selected'])
-chk6.grid(column=6, row=12)
+chk6.grid(column=6, row=13)
 
 
 # Define buttons for randomizing a meal
@@ -220,13 +259,13 @@ def clicked6():
     counter += 1
     sunday.set(mains[counter])
 
-btn = Button(window, text="Randomize", command=clicked0); btn.grid(column=0, row=13)
-btn = Button(window, text="Randomize", command=clicked1); btn.grid(column=1, row=13)
-btn = Button(window, text="Randomize", command=clicked2); btn.grid(column=2, row=13)
-btn = Button(window, text="Randomize", command=clicked3); btn.grid(column=3, row=13)
-btn = Button(window, text="Randomize", command=clicked4); btn.grid(column=4, row=13)
-btn = Button(window, text="Randomize", command=clicked5); btn.grid(column=5, row=13)
-btn = Button(window, text="Randomize", command=clicked6); btn.grid(column=6, row=13)
+btn = Button(window, text="Randomize", command=clicked0); btn.grid(column=0, row=14)
+btn = Button(window, text="Randomize", command=clicked1); btn.grid(column=1, row=14)
+btn = Button(window, text="Randomize", command=clicked2); btn.grid(column=2, row=14)
+btn = Button(window, text="Randomize", command=clicked3); btn.grid(column=3, row=14)
+btn = Button(window, text="Randomize", command=clicked4); btn.grid(column=4, row=14)
+btn = Button(window, text="Randomize", command=clicked5); btn.grid(column=5, row=14)
+btn = Button(window, text="Randomize", command=clicked6); btn.grid(column=6, row=14)
 
 
 # Add some white space in GUI
