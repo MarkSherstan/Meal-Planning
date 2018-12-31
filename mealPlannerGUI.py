@@ -222,54 +222,6 @@ chk6.state(['!alternate','!selected'])
 chk6.grid(column=6, row=13)
 
 
-
-# # Define buttons for randomizing a meal
-# counter = 6
-#
-# def clicked0():
-#     global counter
-#     counter += 1
-#     monday.set(mains[counter])
-#
-# def clicked1():
-#     global counter
-#     counter += 1
-#     tuesday.set(mains[counter])
-#
-# def clicked2():
-#     global counter
-#     counter += 1
-#     wednesday.set(mains[counter])
-#
-# def clicked3():
-#     global counter
-#     counter += 1
-#     thursday.set(mains[counter])
-#
-# def clicked4():
-#     global counter
-#     counter += 1
-#     friday.set(mains[counter])
-#
-# def clicked5():
-#     global counter
-#     counter += 1
-#     saturday.set(mains[counter])
-#
-# def clicked6():
-#     global counter
-#     counter += 1
-#     sunday.set(mains[counter])
-#
-# btn = Button(window, text="Randomize", command=clicked0); btn.grid(column=0, row=14)
-# btn = Button(window, text="Randomize", command=clicked1); btn.grid(column=1, row=14)
-# btn = Button(window, text="Randomize", command=clicked2); btn.grid(column=2, row=14)
-# btn = Button(window, text="Randomize", command=clicked3); btn.grid(column=3, row=14)
-# btn = Button(window, text="Randomize", command=clicked4); btn.grid(column=4, row=14)
-# btn = Button(window, text="Randomize", command=clicked5); btn.grid(column=5, row=14)
-# btn = Button(window, text="Randomize", command=clicked6); btn.grid(column=6, row=14)
-
-
 ################################################################################
 # Define push button functions for swapping meals and sides
 ################################################################################
@@ -337,22 +289,74 @@ def swapSides():
 
 
 btn = Button(window, text="Swap Meals", command=swapMeals)
-btn.grid(column=1, row=16)
+btn.grid(column=2, row=16)
 
 btn = Button(window, text="Swap Sides", command=swapSides)
-btn.grid(column=5, row=16)
+btn.grid(column=6, row=16)
 
 
 ################################################################################
 # Define push buttons and functions for randomizing meals
 ################################################################################
+counterMeals = 7
+counterSides = 7
 
 
+def randomizeMeals():
+    global counterMeals
+
+    checkBoxes = [chk0.instate(['selected']), chk1.instate(['selected']),
+                  chk2.instate(['selected']), chk3.instate(['selected']),
+                  chk4.instate(['selected']), chk5.instate(['selected']),
+                  chk6.instate(['selected'])]
+
+    dotw = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+
+    for i in range(7):
+        if checkBoxes[i] == True:
+
+            if counterMeals == len(mains):
+                messagebox.showwarning('Warning', 'Used all available meal options, please select manually from drop down list')
+                return
+
+            globals()[dotw[i]].set(mains[counterMeals])
+            counterMeals += 1
+
+        # Clear the checkboxes and enable them all again
+        for i in range(7):
+            globals()['chk' + str(i)].state(['!disabled','!selected'])
 
 
+def randomizeSides():
+    global counterSides
+
+    checkBoxes = [chk0.instate(['selected']), chk1.instate(['selected']),
+                  chk2.instate(['selected']), chk3.instate(['selected']),
+                  chk4.instate(['selected']), chk5.instate(['selected']),
+                  chk6.instate(['selected'])]
+
+    dotwSide = ['mondaySide', 'tuesdaySide', 'wednesdaySide', 'thursdaySide', 'fridaySide', 'saturdaySide', 'sundaySide']
+
+    for i in range(7):
+        if checkBoxes[i] == True:
+
+            if counterSides == len(sides):
+                messagebox.showwarning('Warning', 'Used all available side options, please select manually from drop down list')
+                return
+
+            globals()[dotwSide[i]].set(sides[counterSides])
+            counterSides += 1
+
+        # Clear the checkboxes and enable them all again
+        for i in range(7):
+            globals()['chk' + str(i)].state(['!disabled','!selected'])
 
 
+btn = Button(window, text="Randomize Meals", command=randomizeMeals)
+btn.grid(column=0, row=16)
 
+btn = Button(window, text="Randomize Sides", command=randomizeSides)
+btn.grid(column=4, row=16)
 
 
 
