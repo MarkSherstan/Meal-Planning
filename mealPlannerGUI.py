@@ -15,7 +15,7 @@ from tkinter import ttk, messagebox, scrolledtext
 # Make a window to display GUI data
 window = Tk()
 window.title("Meal Planner")
-window.geometry('1250x450')
+#window.geometry('2560x450')
 
 
 ################################################################################
@@ -30,12 +30,12 @@ sideData = pd.read_csv('sides.csv', header = None)
 
 # Process data, make two unique lists, and shuffle the order
 mains = mealData[mealData.columns[0]].dropna()
-mains = list(set(mains.iloc[1:-1]))
+mains = list(set(mains.iloc[1:]))
 random.shuffle(mains)
 mains.append("---")
 
 sides = sideData[sideData.columns[0]].dropna()
-sides = list(set(sides.iloc[1:-1]))
+sides = list(set(sides.iloc[1:]))
 random.shuffle(sides)
 sides.append("---")
 
@@ -54,7 +54,7 @@ weeklyData = pd.read_csv('weeklyData.csv',
 daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
 for i in range(len(daysOfWeek)):
-    lbl = Label(window, text=daysOfWeek[i], width=12, font=("Arial Bold", 20))
+    lbl = Label(window, text=daysOfWeek[i], width=12, font=("Arial Bold", 18))
     lbl.grid(column=i, row=0)
 
 
@@ -66,8 +66,8 @@ for i in range(-4,0,1):
     for j in range(1,8,1):
         out = weeklyData.iat[i,j]
 
-        b = Label(window, anchor="w", text=out, font=("Arial", 14))
-        b.grid(row=rowIdx, column=columnIdx)
+        b = Label(window, anchor="w", text=out, font=("Arial", 12))
+        b.grid(row=rowIdx, column=columnIdx, sticky="w")
         columnIdx += 1
 
     rowIdx += 1
@@ -80,7 +80,7 @@ lbl = Label(window, text=""); lbl.grid(column=0, row=9)
 
 
 for i in range(len(daysOfWeek)):
-    lbl = Label(window, text=daysOfWeek[i], font=("Arial Bold", 20))
+    lbl = Label(window, text=daysOfWeek[i], font=("Arial Bold", 18))
     lbl.grid(column=i, row=10)
 
 
@@ -92,36 +92,43 @@ for i in range(len(daysOfWeek)):
 monday = StringVar(window)
 monday.set(mains[0])
 w = OptionMenu(window, monday, *sorted(mains))
+w.configure(width=12)
 w.grid(column=0, row=11, sticky="ew")
 
 tuesday = StringVar(window)
 tuesday.set(mains[1])
 w = OptionMenu(window, tuesday, *sorted(mains))
+w.configure(width=12)
 w.grid(column=1, row=11, sticky="ew")
 
 wednesday = StringVar(window)
 wednesday.set(mains[2])
 w = OptionMenu(window, wednesday, *sorted(mains))
+w.configure(width=12)
 w.grid(column=2, row=11, sticky="ew")
 
 thursday = StringVar(window)
 thursday.set(mains[3])
 w = OptionMenu(window, thursday, *sorted(mains))
+w.configure(width=12)
 w.grid(column=3, row=11, sticky="ew")
 
 friday = StringVar(window)
 friday.set(mains[4])
 w = OptionMenu(window, friday, *sorted(mains))
+w.configure(width=12)
 w.grid(column=4, row=11, sticky="ew")
 
 saturday = StringVar(window)
 saturday.set(mains[5])
 w = OptionMenu(window, saturday, *sorted(mains))
+w.configure(width=12)
 w.grid(column=5, row=11, sticky="ew")
 
 sunday = StringVar(window)
 sunday.set(mains[6])
 w = OptionMenu(window, sunday, *sorted(mains))
+w.configure(width=12)
 w.grid(column=6, row=11, sticky="ew")
 
 
@@ -130,36 +137,43 @@ w.grid(column=6, row=11, sticky="ew")
 mondaySide = StringVar(window)
 mondaySide.set(sides[0])
 w = OptionMenu(window, mondaySide, *sorted(sides))
+w.configure(width=12)
 w.grid(column=0, row=12, sticky="ew")
 
 tuesdaySide = StringVar(window)
 tuesdaySide.set(sides[1])
 w = OptionMenu(window, tuesdaySide, *sorted(sides))
+w.configure(width=12)
 w.grid(column=1, row=12, sticky="ew")
 
 wednesdaySide = StringVar(window)
 wednesdaySide.set(sides[2])
 w = OptionMenu(window, wednesdaySide, *sorted(sides))
+w.configure(width=12)
 w.grid(column=2, row=12, sticky="ew")
 
 thursdaySide = StringVar(window)
 thursdaySide.set(sides[3])
 w = OptionMenu(window, thursdaySide, *sorted(sides))
+w.configure(width=12)
 w.grid(column=3, row=12, sticky="ew")
 
 fridaySide = StringVar(window)
 fridaySide.set(sides[4])
 w = OptionMenu(window, fridaySide, *sorted(sides))
+w.configure(width=12)
 w.grid(column=4, row=12, sticky="ew")
 
 saturdaySide = StringVar(window)
 saturdaySide.set(sides[5])
 w = OptionMenu(window, saturdaySide, *sorted(sides))
+w.configure(width=12)
 w.grid(column=5, row=12, sticky="ew")
 
 sundaySide = StringVar(window)
 sundaySide.set(sides[6])
 w = OptionMenu(window, sundaySide, *sorted(sides))
+w.configure(width=12)
 w.grid(column=6, row=12, sticky="ew")
 
 
@@ -471,10 +485,10 @@ btn = Button(window, text="Save and Exit", command=saveAndExit)
 btn.grid(column=3, row=19)
 
 
-ent = Entry(window,width=12,textvariable="email")
+ent = Entry(window,width=36,textvariable="email")
 ent.insert(INSERT, "Email")
 ent.configure(font=("Arial"))
-ent.grid(column=3, row=20)
+ent.grid(column=2, row=20, columnspan=3)
 
 
 ################################################################################
