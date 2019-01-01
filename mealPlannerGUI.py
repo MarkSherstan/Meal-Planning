@@ -22,7 +22,7 @@ window.geometry('1200x425')
 # Reading and processing CSV's
 ################################################################################
 
-# Read in CSV file of meal data
+# Read in CSV file of meal and side data
 mealData = pd.read_csv('meals.csv', header = None)
 sideData = pd.read_csv('sides.csv', header = None)
 
@@ -37,7 +37,7 @@ sides = list(set(sides.iloc[1:]))
 random.shuffle(sides)
 sides.append("---")
 
-# Read in CSV file of data
+# Read in CSV file of weekly data to show previous meals
 weeklyData = pd.read_csv('weeklyData.csv',
             header = 0,
             names = ['Date', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
@@ -45,7 +45,7 @@ weeklyData = pd.read_csv('weeklyData.csv',
 
 
 ################################################################################
-# First GUI objects - Headers and static csv data
+# Initial static GUI data - headers and previous meals
 ################################################################################
 
 # Put the days of the week in the GUI
@@ -56,7 +56,7 @@ for i in range(len(daysOfWeek)):
     lbl = Label(window, text=daysOfWeek[i], width=12, font=("Arial Bold", 18))
     lbl.grid(column=i, row=0)
 
-# Display the last 4 weeks
+# Display the last four weeks of meals
 rowIdx = 1
 columnIdx = 0
 
@@ -81,7 +81,7 @@ for i in range(len(daysOfWeek)):
 
 
 ################################################################################
-# Create drop downs for Mains and Sides
+# Create drop downs for mains and sides
 ################################################################################
 
 # Drop down selectors for mains
@@ -176,7 +176,7 @@ w.grid(column=6, row=12, sticky="ew")
 # Set up check buttons
 ################################################################################
 
-# Set up style for buttons
+# Set up style for buttons to make them look better
 windowBgColor = window.cget("background")
 
 style = ttk.Style()
@@ -236,11 +236,12 @@ chk6.grid(column=6, row=13)
 # Add some white space in GUI
 lbl = Label(window, text="", width=5); lbl.grid(column=7, row=0)
 
-lbl = Label(window, text="Ingredients", font=("Arial Bold", 20));
+# Make ingredients header and scroll list
+lbl = Label(window, text="Ingredients", font=("Arial Bold", 20))
 lbl.grid(column=8, row=0)
 
 txt = scrolledtext.ScrolledText(window,width=20,height=17)
-txt.grid(column=8,row=1,rowspan=15)
+txt.grid(column=8, row=1, rowspan=15)
 
 # Function for displaying the ingrediants
 def dispIngrediants():
@@ -279,12 +280,16 @@ def dispIngrediants():
 # Call the function for initital update
 dispIngrediants()
 
+# Add some white space in GUI and make a refresh button for ingrediants
+lbl = Label(window, text=""); lbl.grid(column=0, row=15)
+
+btn = Button(window, text="Refresh", command=dispIngrediants)
+btn.grid(column=8, row=16)
+
+
 ################################################################################
 # Define push button functions for swapping meals and sides
 ################################################################################
-
-# Add some white space in GUI
-lbl = Label(window, text=""); lbl.grid(column=0, row=15)
 
 # Swap meals
 def swapMeals():
@@ -350,7 +355,7 @@ def swapSides():
         messagebox.showerror('Error', 'Must select exactly two days in order \
                             to swap')
 
-
+# Create the buttons
 btn = Button(window, text="Swap Meals", command=swapMeals)
 btn.grid(column=2, row=16)
 
@@ -364,6 +369,7 @@ btn.grid(column=6, row=16)
 counterMeals = 7
 counterSides = 7
 
+# Randomize meals
 def randomizeMeals():
     global counterMeals
 
@@ -393,7 +399,7 @@ def randomizeMeals():
 
     dispIngrediants()
 
-
+# Randomize sides
 def randomizeSides():
     global counterSides
 
@@ -423,7 +429,7 @@ def randomizeSides():
 
     dispIngrediants()
 
-
+# Create the buttons
 btn = Button(window, text="Randomize Meals", command=randomizeMeals)
 btn.grid(column=0, row=16)
 
@@ -439,7 +445,7 @@ btn.grid(column=4, row=16)
 lbl = Label(window, text=""); lbl.grid(column=0, row=17)
 lbl = Label(window, text=""); lbl.grid(column=0, row=18)
 
-# Save the data and exit
+# Save the data and exit and email if desired
 def saveAndExit():
     global ingrediantList
 
@@ -456,7 +462,7 @@ def saveAndExit():
     with open('weeklyData.csv', 'a') as f:
         newData.to_csv(f, header=False, index=False)
 
-    # Send email
+    # Send email if email adress is entered
     if ent.get() != "Email":
         gmail_user = 'meal.Planner.python.2018@gmail.com'
         gmail_password = ''
@@ -485,7 +491,7 @@ def saveAndExit():
 
     window.destroy()
 
-
+# Create button to save and exit and a window to type in an email adress
 btn = Button(window, text="Save and Exit", command=saveAndExit)
 btn.grid(column=3, row=19)
 
