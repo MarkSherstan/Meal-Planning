@@ -1,16 +1,6 @@
 # Meal-Planning
-Automated meal planner using Python.
-
+Automated meal planner showing previous four weeks of meals and provides randomized suggestions for this weeks meals and sides. Graphical user interface (GUI) provides options for swapping and further randomizing meals and sides. Ingredients are shown for the current meal and side selection.  
 
 ## To do
-* Make .exe
+* Make .exe and .app
 * Fill out rest of README
-* Requirments?
-* Clean up and comment
-
-
-## Requirments
-```
-pip install panda
-pip install tkinter
-```
