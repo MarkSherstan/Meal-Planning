@@ -15,7 +15,7 @@ from tkinter import ttk, messagebox, scrolledtext
 # Make a window to display GUI data
 window = Tk()
 window.title("Meal Planner")
-#window.geometry('2560x450')
+window.geometry('1200x425')
 
 
 ################################################################################
@@ -24,9 +24,7 @@ window.title("Meal Planner")
 
 # Read in CSV file of meal data
 mealData = pd.read_csv('meals.csv', header = None)
-
 sideData = pd.read_csv('sides.csv', header = None)
-
 
 # Process data, make two unique lists, and shuffle the order
 mains = mealData[mealData.columns[0]].dropna()
@@ -39,11 +37,11 @@ sides = list(set(sides.iloc[1:]))
 random.shuffle(sides)
 sides.append("---")
 
-
 # Read in CSV file of data
 weeklyData = pd.read_csv('weeklyData.csv',
             header = 0,
-            names = ['Date', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'])
+            names = ['Date', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+                    'Friday', 'Saturday', 'Sunday'])
 
 
 ################################################################################
@@ -51,12 +49,12 @@ weeklyData = pd.read_csv('weeklyData.csv',
 ################################################################################
 
 # Put the days of the week in the GUI
-daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday',
+             'Saturday', 'Sunday']
 
 for i in range(len(daysOfWeek)):
     lbl = Label(window, text=daysOfWeek[i], width=12, font=("Arial Bold", 18))
     lbl.grid(column=i, row=0)
-
 
 # Display the last 4 weeks
 rowIdx = 1
@@ -73,11 +71,9 @@ for i in range(-4,0,1):
     rowIdx += 1
     columnIdx = 0
 
-
 # Add some white space in GUI and add the days of the week again
 lbl = Label(window, text=""); lbl.grid(column=0, row=8)
 lbl = Label(window, text=""); lbl.grid(column=0, row=9)
-
 
 for i in range(len(daysOfWeek)):
     lbl = Label(window, text=daysOfWeek[i], font=("Arial Bold", 18))
@@ -132,7 +128,6 @@ w.configure(width=12)
 w.grid(column=6, row=11, sticky="ew")
 
 
-
 # Drop down selectors for sides
 mondaySide = StringVar(window)
 mondaySide.set(sides[0])
@@ -181,7 +176,6 @@ w.grid(column=6, row=12, sticky="ew")
 # Set up check buttons
 ################################################################################
 
-
 # Set up style for buttons
 windowBgColor = window.cget("background")
 
@@ -205,7 +199,7 @@ style.map('TCheckbutton',
         relief=[('pressed', 'groove'),
                 ('!pressed', 'ridge')])
 
-
+# Make the check buttons
 chk0 = ttk.Checkbutton(window)
 chk0.state(['!alternate','!selected'])
 chk0.grid(column=0, row=13)
@@ -236,7 +230,7 @@ chk6.grid(column=6, row=13)
 
 
 ################################################################################
-# Put ingrediant data here --> this should be a function called on each button press and first instance
+# Combining and displaying ingrediants
 ################################################################################
 
 # Add some white space in GUI
@@ -248,12 +242,16 @@ lbl.grid(column=8, row=0)
 txt = scrolledtext.ScrolledText(window,width=20,height=17)
 txt.grid(column=8,row=1,rowspan=15)
 
-
+# Function for displaying the ingrediants
 def dispIngrediants():
     txt.delete('1.0', END)
 
-    currentMeals = [monday.get(), tuesday.get(), wednesday.get(), thursday.get(), friday.get(), saturday.get(), sunday.get()]
-    currentSides = [mondaySide.get(), tuesdaySide.get(), wednesdaySide.get(), thursdaySide.get(), fridaySide.get(), saturdaySide.get(), sundaySide.get()]
+    currentMeals = [monday.get(), tuesday.get(), wednesday.get(), \
+                    thursday.get(), friday.get(), saturday.get(), \
+                    sunday.get()]
+    currentSides = [mondaySide.get(), tuesdaySide.get(), wednesdaySide.get(), \
+                    thursdaySide.get(), fridaySide.get(), saturdaySide.get(), \
+                    sundaySide.get()]
 
     ingrediants = []
 
@@ -267,7 +265,6 @@ def dispIngrediants():
         ingrediants.append(mealIngrediantsNew)
         ingrediants.append(sideIngrediantsNew)
 
-
     ingrediants = list(set(sum(ingrediants, [])))
     ingrediantsSorted = sorted(ingrediants, key=str.lower)
 
@@ -279,6 +276,7 @@ def dispIngrediants():
     ingrediantList = ingrediantsSorted
     return ingrediantList
 
+# Call the function for initital update
 dispIngrediants()
 
 ################################################################################
@@ -286,7 +284,6 @@ dispIngrediants()
 ################################################################################
 
 # Add some white space in GUI
-# lbl = Label(window, text=""); lbl.grid(column=0, row=14)
 lbl = Label(window, text=""); lbl.grid(column=0, row=15)
 
 # Swap meals
@@ -296,12 +293,15 @@ def swapMeals():
                   chk4.instate(['selected']), chk5.instate(['selected']),
                   chk6.instate(['selected'])]
 
-    currentMeals = [monday.get(), tuesday.get(), wednesday.get(), thursday.get(), friday.get(), saturday.get(), sunday.get()]
+    currentMeals = [monday.get(), tuesday.get(), wednesday.get(), \
+                    thursday.get(), friday.get(), saturday.get(), \
+                    sunday.get()]
 
     swapIdx = np.where(checkBoxes)
 
     if len(swapIdx[0]) == 2:
-        currentMeals[swapIdx[0][0]], currentMeals[swapIdx[0][1]] = currentMeals[swapIdx[0][1]], currentMeals[swapIdx[0][0]]
+        currentMeals[swapIdx[0][0]], currentMeals[swapIdx[0][1]] = \
+        currentMeals[swapIdx[0][1]], currentMeals[swapIdx[0][0]]
 
         monday.set(currentMeals[0])
         tuesday.set(currentMeals[1])
@@ -315,8 +315,8 @@ def swapMeals():
         for i in range(7):
             globals()['chk' + str(i)].state(['!disabled','!selected'])
     else:
-        messagebox.showerror('Error', 'Must select exactly two days in order to swap')
-
+        messagebox.showerror('Error', 'Must select exactly two days in order \
+                            to swap')
 
 # Swap sides
 def swapSides():
@@ -325,12 +325,15 @@ def swapSides():
                   chk4.instate(['selected']), chk5.instate(['selected']),
                   chk6.instate(['selected'])]
 
-    currentSides = [mondaySide.get(), tuesdaySide.get(), wednesdaySide.get(), thursdaySide.get(), fridaySide.get(), saturdaySide.get(), sundaySide.get()]
+    currentSides = [mondaySide.get(), tuesdaySide.get(), wednesdaySide.get(), \
+                    thursdaySide.get(), fridaySide.get(), saturdaySide.get(), \
+                    sundaySide.get()]
 
     swapIdx = np.where(checkBoxes)
 
     if len(swapIdx[0]) == 2:
-        currentSides[swapIdx[0][0]], currentSides[swapIdx[0][1]] = currentSides[swapIdx[0][1]], currentSides[swapIdx[0][0]]
+        currentSides[swapIdx[0][0]], currentSides[swapIdx[0][1]] = \
+        currentSides[swapIdx[0][1]], currentSides[swapIdx[0][0]]
 
         mondaySide.set(currentSides[0])
         tuesdaySide.set(currentSides[1])
@@ -344,7 +347,8 @@ def swapSides():
         for i in range(7):
             globals()['chk' + str(i)].state(['!disabled','!selected'])
     else:
-        messagebox.showerror('Error', 'Must select exactly two days in order to swap')
+        messagebox.showerror('Error', 'Must select exactly two days in order \
+                            to swap')
 
 
 btn = Button(window, text="Swap Meals", command=swapMeals)
@@ -360,7 +364,6 @@ btn.grid(column=6, row=16)
 counterMeals = 7
 counterSides = 7
 
-
 def randomizeMeals():
     global counterMeals
 
@@ -369,13 +372,16 @@ def randomizeMeals():
                   chk4.instate(['selected']), chk5.instate(['selected']),
                   chk6.instate(['selected'])]
 
-    dotw = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+    dotw = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', \
+            'saturday', 'sunday']
 
     for i in range(7):
         if checkBoxes[i] == True:
 
             if counterMeals == len(mains):
-                messagebox.showwarning('Warning', 'Used all available meal options, please select manually from drop down list')
+                messagebox.showwarning('Warning', 'Used all available meal \
+                                        options, please select manually from \
+                                        drop down list')
                 return
 
             globals()[dotw[i]].set(mains[counterMeals])
@@ -396,13 +402,16 @@ def randomizeSides():
                   chk4.instate(['selected']), chk5.instate(['selected']),
                   chk6.instate(['selected'])]
 
-    dotwSide = ['mondaySide', 'tuesdaySide', 'wednesdaySide', 'thursdaySide', 'fridaySide', 'saturdaySide', 'sundaySide']
+    dotwSide = ['mondaySide', 'tuesdaySide', 'wednesdaySide', 'thursdaySide', \
+                'fridaySide', 'saturdaySide', 'sundaySide']
 
     for i in range(7):
         if checkBoxes[i] == True:
 
             if counterSides == len(sides):
-                messagebox.showwarning('Warning', 'Used all available side options, please select manually from drop down list')
+                messagebox.showwarning('Warning', 'Used all available side \
+                                        options, please select manually from \
+                                        drop down list')
                 return
 
             globals()[dotwSide[i]].set(sides[counterSides])
@@ -422,16 +431,13 @@ btn = Button(window, text="Randomize Sides", command=randomizeSides)
 btn.grid(column=4, row=16)
 
 
-
 ################################################################################
-# Save data to csv --> email? and close GUI/function
+# Save data to csv and email
 ################################################################################
-
 
 # Add some white space in GUI
 lbl = Label(window, text=""); lbl.grid(column=0, row=17)
 lbl = Label(window, text=""); lbl.grid(column=0, row=18)
-
 
 # Save the data and exit
 def saveAndExit():
@@ -439,18 +445,19 @@ def saveAndExit():
 
     timeStamp = str(datetime.datetime.now().strftime("%Y-%m-%d"))
 
-    fields = [timeStamp, monday.get(), tuesday.get(), wednesday.get(), thursday.get(), friday.get(), saturday.get(), sunday.get()]
+    fields = [timeStamp, monday.get(), tuesday.get(), wednesday.get(), \
+              thursday.get(), friday.get(), saturday.get(), sunday.get()]
 
-    newData = pd.DataFrame(columns=['Date','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'])
+    newData = pd.DataFrame(columns=['Date','Monday','Tuesday','Wednesday', \
+                                    'Thursday','Friday','Saturday','Sunday'])
     newData.loc[weeklyData.tail(1).index.item()+1] = fields
 
     # Write to CSV for next week
     with open('weeklyData.csv', 'a') as f:
         newData.to_csv(f, header=False, index=False)
 
-
+    # Send email
     if ent.get() != "Email":
-        # Send email
         gmail_user = 'meal.Planner.python.2018@gmail.com'
         gmail_password = ''
 
@@ -458,13 +465,13 @@ def saveAndExit():
         to = ent.get()
 
         email_text = timeStamp + "\n\n" + \
-                    'Monday: ' + fields[1] + " with " + mondaySide.get() + "\n" + \
-                    'Tuesday: ' + fields[2] + " with " + tuesdaySide.get() + "\n" + \
-                    'Wednesday: ' + fields[3] + " with " + wednesdaySide.get() + "\n" + \
-                    'Thursday: ' + fields[4] + " with " + thursdaySide.get() + "\n" + \
-                    'Friday: ' + fields[5] + " with " + fridaySide.get() + "\n" + \
-                    'Saturday: ' + fields[6] + " with " + saturdaySide.get() + "\n" + \
-                    'Sunday: ' + fields[7] + " with " + sundaySide.get() + "\n\n\n" + \
+                    'Monday: ' +fields[1] +" with " + mondaySide.get() + "\n" + \
+                    'Tuesday: ' +fields[2] + " with " +tuesdaySide.get()+"\n" + \
+                    'Wednesday: '+fields[3]+" with " +wednesdaySide.get()+"\n"+ \
+                    'Thursday: ' + fields[4] + " with "+thursdaySide.get()+"\n"+\
+                    'Friday: ' + fields[5] + " with " + fridaySide.get()+"\n" + \
+                    'Saturday: ' + fields[6] + " with "+saturdaySide.get()+"\n"+\
+                    'Sunday: ' + fields[7] + " with "+sundaySide.get()+"\n\n\n"+\
                     "Ingredients:" + "\n\n" + '\n'.join(ingrediantList)
 
         try:
@@ -476,14 +483,11 @@ def saveAndExit():
         except:
             messagebox.showerror('Error', 'Email not sent')
 
-
     window.destroy()
-
 
 
 btn = Button(window, text="Save and Exit", command=saveAndExit)
 btn.grid(column=3, row=19)
-
 
 ent = Entry(window,width=36,textvariable="email")
 ent.insert(INSERT, "Email")
@@ -492,7 +496,7 @@ ent.grid(column=2, row=20, columnspan=3)
 
 
 ################################################################################
-# GUI inf loop
+# GUI Infinite loop
 ################################################################################
 
 # Run forever until destroyed
