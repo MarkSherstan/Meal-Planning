@@ -5,7 +5,7 @@ Automated meal planner showing previous four weeks of meals and provides randomi
 macOS comes preinstalled with python and some basic packages and modules. To use the automated meal planner some additional packages and updates must be installed. Complete the following:
 
 * Install [python3](https://www.python.org/downloads/)
-* Press "command" and "space bar" at the same time and type "Terminal" (without the quotes) then enter:
+* Press "command" and "space bar" at the same time and type "Terminal" (without the quotes) and open the terminal app. In the terminal window enter:
 
 ```
 pip3 install pandas
