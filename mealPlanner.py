@@ -17,7 +17,6 @@ window = Tk()
 window.title("Meal Planner")
 window.geometry('1200x425')
 
-
 ################################################################################
 # Reading and processing CSV's
 ################################################################################
@@ -240,7 +239,7 @@ lbl = Label(window, text="", width=5); lbl.grid(column=7, row=0)
 lbl = Label(window, text="Ingredients", font=("Arial Bold", 20))
 lbl.grid(column=8, row=0)
 
-txt = scrolledtext.ScrolledText(window,width=20,height=17)
+txt = scrolledtext.ScrolledText(window,width=22,height=17)
 txt.grid(column=8, row=1, rowspan=15)
 
 # Function for displaying the ingrediants
@@ -465,7 +464,7 @@ def saveAndExit():
     # Send email if email adress is entered
     if ent.get() != "Email":
         gmail_user = 'meal.Planner.python.2018@gmail.com'
-        gmail_password = ''
+        gmail_password = 'mealPlanner2018!'
 
         sent_from = gmail_user
         to = ent.get()
