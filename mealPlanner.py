@@ -446,7 +446,7 @@ lbl = Label(window, text=""); lbl.grid(column=0, row=18)
 
 # Save the data and exit and email if desired
 def saveAndExit():
-    global ingrediantList
+    dispIngrediants()
 
     timeStamp = str(datetime.datetime.now().strftime("%Y-%m-%d"))
 
