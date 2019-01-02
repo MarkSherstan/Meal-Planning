@@ -2,10 +2,11 @@
 Automated meal planner showing previous four weeks of meals and provides randomized suggestions for this weeks meals and sides. Graphical user interface (GUI) provides options for swapping and further randomizing meals and sides. Ingredients are shown for the current meal and side selection.  
 
 ## Set Up on macOS
-macOS comes preinstalled with python and some basic packages and modules. To use the automated meal planner some additional packages and updates must be installed. Complete the following:
+macOS comes preinstalled with python and some basic packages and modules. To use the automated meal planner additional packages and updates must be installed. Complete the following:
 
+* Download or clone meal planning files (green button at top of page)
 * Install [python3](https://www.python.org/downloads/)
-* Press "command" and "space bar" at the same time and type "Terminal" (without the quotes) then enter:
+* Press "command" and "space bar" at the same time and type "Terminal" (without the quotes) and open the terminal app. In the terminal window enter:
 
 ```
 pip3 install pandas
