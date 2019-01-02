@@ -15,7 +15,7 @@ from tkinter import ttk, messagebox, scrolledtext
 # Make a window to display GUI data
 window = Tk()
 window.title("Meal Planner")
-window.geometry('1200x425')
+
 
 ################################################################################
 # Reading and processing CSV's
