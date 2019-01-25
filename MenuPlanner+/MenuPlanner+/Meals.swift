@@ -27,5 +27,17 @@ class Meals{
         return uniqueSides
     }
     
+    func getPreviousMeals() -> (Array<String>, Array<String>, Array<String>, Array<String>, Array<String>, Array<String>, Array<String> ) {
+        let mondayData = ["Stir Fry", "Steak", "Pizza", "Gummy Worms"]
+        let tuesdayData = ["Lausagna", "Sweet Potatoe Chicken Bacon", "BBQ Chicken"]
+        let wednesdayData = ["Fries", "Gummy Worms", "Salad", "Beans", "Potatoes"]
+        let thursdayData = ["Fries", "Gummy Worms", "Salad", "Beans", "Potatoes"]
+        let fridayData = ["Fries", "Gummy Worms", "Salad", "Beans", "Potatoes"]
+        let saturdayData = ["Fries", "Gummy Worms", "Salad", "Beans", "Potatoes"]
+        let sundayData = ["Fries", "Gummy Worms", "Salad", "Beans", "Potatoes"]
+        
+        return (mondayData, tuesdayData, wednesdayData, thursdayData, fridayData, saturdayData, sundayData)
+    }
+    
 }
 

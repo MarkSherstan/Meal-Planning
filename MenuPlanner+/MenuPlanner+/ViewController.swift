@@ -25,12 +25,15 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Get the mains and sides
+        // Get mains and sides
         let mains = meals.getMains()
         let sides = meals.getSides()
-
+        
+        // Populate the previous meals
+        setUpPreviousMeals()
+        
         // Populate the pop up windows
-        setUpPopUPWindows(mains: mains, sides: sides)
+        setUpPopUpWindows(mains: mains, sides: sides)
     }
     
     // Update the view, if already loaded
@@ -43,7 +46,7 @@ class ViewController: NSViewController {
     ////////////////////////////////////////////////////////////////////////////////////////
     // Private Functions
     ////////////////////////////////////////////////////////////////////////////////////////
-    private func setUpPopUPWindows(mains: Array<String>, sides: Array<String>) {
+    private func setUpPopUpWindows(mains: Array<String>, sides: Array<String>) {
         // Setup the pop up buttons
         mondayMeal.removeAllItems()
         mondayMeal.addItems(withTitles: mains)
@@ -62,6 +65,16 @@ class ViewController: NSViewController {
         let idxSides = sidesCount.shuffled()
         
         mondaySide.selectItem(at: idxSides[0])
+    }
+    
+    
+    
+    private func setUpPreviousMeals() {
+        let previousMeals = meals.getPreviousMeals()
+        
+        mondayMealPast1.stringValue = previousMeals.0[previousMeals.0.count - 1]
+        mondayMealPast2.stringValue = previousMeals.0[previousMeals.0.count - 2]
+        mondayMealPast3.stringValue = previousMeals.0[previousMeals.0.count - 3]
     }
     
     
