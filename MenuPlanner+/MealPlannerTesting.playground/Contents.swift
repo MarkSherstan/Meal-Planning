@@ -57,3 +57,42 @@ let test = mealz(main: "burgers", ing: "pickles" ) //["pickles", "ketchup"]
 test.main
 test.ing
 
+
+// Setting order
+print(meals)
+meals.count
+
+let mealCount = 0..<meals.count
+let mealCountShuffled = mealCount.shuffled()
+print(mealCountShuffled)
+mealCountShuffled[7]
+
+for ii in 0..<7 {
+    let idx = mealCountShuffled[ii]
+    print(idx)
+    //print(meals[idx])
+    print(meals[idx])
+}
+
+
+// Testing functions and disctionaries
+var previousMeals = [
+    "Monday": ["Stir Fry", "Steak", "Pizza"],
+    "Tuesday": ["Lausagna", "Sweet Potatoe Chicken Bacon", "BBQ Chicken"],
+]
+
+
+func test10() -> (Array<String>, Array<String>) {
+    let mondayData = ["Stir Fry", "Steak", "Pizza"]
+    let tuesdayData = ["Lausagna", "Sweet Potatoe Chicken Bacon", "BBQ Chicken"]
+    
+    return (mondayData, tuesdayData)
+}
+
+
+var outOut = test10()
+outOut.0[2]
+outOut.1[outOut.1.count-2]
+
+
+//
