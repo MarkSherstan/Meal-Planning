@@ -1745,6 +1745,9 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="randomizeMealsButton:" target="XfG-lQ-9wD" id="YYx-7q-JeP"/>
+                                        </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="grQ-dX-jfJ">
                                         <rect key="frame" x="17" y="111" width="87" height="23"/>
@@ -1809,6 +1812,14 @@
                             <constraint firstItem="OLh-IC-8l4" firstAttribute="leading" secondItem="hJN-lk-oGu" secondAttribute="trailing" id="xat-bD-22G"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mondayCheckBox" destination="dtV-Ob-S1D" id="ulT-MX-de1"/>
+                        <outlet property="mondayMeal" destination="Jte-rN-kLR" id="SSf-mH-ZgM"/>
+                        <outlet property="mondayMealPast1" destination="z8z-dT-yAx" id="wqs-ya-wfR"/>
+                        <outlet property="mondayMealPast2" destination="g5r-N3-WLU" id="x9K-r5-BIr"/>
+                        <outlet property="mondayMealPast3" destination="sVG-0T-dff" id="RH4-t2-5X7"/>
+                        <outlet property="mondaySide" destination="2rB-Qp-Yvs" id="Zem-iQ-CtR"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
