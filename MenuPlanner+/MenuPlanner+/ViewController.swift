@@ -29,14 +29,8 @@ class ViewController: NSViewController {
         let mains = meals.getMains()
         let sides = meals.getSides()
 
-        // Setup the pop up buttons
-        mondayMeal.removeAllItems()
-        mondayMeal.addItems(withTitles: mains)
-        mondayMeal.selectItem(at: 0)
-        
-        mondaySide.removeAllItems()
-        mondaySide.addItems(withTitles: sides)
-        mondaySide.selectItem(at: 0)
+        // Populate the pop up windows
+        setUpPopUPWindows(mains: mains, sides: sides)
     }
     
     // Update the view, if already loaded
@@ -45,7 +39,36 @@ class ViewController: NSViewController {
         }
     }
 
-    // 
+    
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Private Functions
+    ////////////////////////////////////////////////////////////////////////////////////////
+    private func setUpPopUPWindows(mains: Array<String>, sides: Array<String>) {
+        // Setup the pop up buttons
+        mondayMeal.removeAllItems()
+        mondayMeal.addItems(withTitles: mains)
+        
+        let mainsCount = 1...mains.count
+        let idxMains = mainsCount.shuffled()
+        
+        mondayMeal.selectItem(at: idxMains[0])
+        
+        
+        
+        mondaySide.removeAllItems()
+        mondaySide.addItems(withTitles: sides)
+        
+        let sidesCount = 1...sides.count
+        let idxSides = sidesCount.shuffled()
+        
+        mondaySide.selectItem(at: idxSides[0])
+    }
+    
+    
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Buttons
+    ////////////////////////////////////////////////////////////////////////////////////////
+    
     @IBAction func randomizeMealsButton(_ sender: Any) {
     
         if mondayCheckBox.state == .on {
