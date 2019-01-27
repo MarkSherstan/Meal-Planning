@@ -1755,6 +1755,9 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="swapMealsButton:" target="XfG-lQ-9wD" id="YPY-y7-97w"/>
+                                        </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fZi-cF-P0W">
                                         <rect key="frame" x="2" y="55" width="118" height="23"/>
@@ -1762,6 +1765,9 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="randomizeSidesButton:" target="XfG-lQ-9wD" id="jd4-Su-mnc"/>
+                                        </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BAn-qg-Snz">
                                         <rect key="frame" x="19" y="-1" width="84" height="23"/>
@@ -1769,6 +1775,9 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="swapSidesButton:" target="XfG-lQ-9wD" id="crj-pi-Qdm"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <visibilityPriorities>
@@ -1813,12 +1822,30 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="fridayCheckBox" destination="AD7-Uw-ySb" id="akw-4g-ZbP"/>
+                        <outlet property="fridayMeal" destination="W7O-OX-tsM" id="22f-yf-hq3"/>
+                        <outlet property="fridaySide" destination="yFu-2n-XXz" id="zg8-11-oen"/>
                         <outlet property="mondayCheckBox" destination="dtV-Ob-S1D" id="ulT-MX-de1"/>
                         <outlet property="mondayMeal" destination="Jte-rN-kLR" id="SSf-mH-ZgM"/>
                         <outlet property="mondayMealPast1" destination="z8z-dT-yAx" id="wqs-ya-wfR"/>
                         <outlet property="mondayMealPast2" destination="g5r-N3-WLU" id="x9K-r5-BIr"/>
                         <outlet property="mondayMealPast3" destination="sVG-0T-dff" id="RH4-t2-5X7"/>
                         <outlet property="mondaySide" destination="2rB-Qp-Yvs" id="Zem-iQ-CtR"/>
+                        <outlet property="saturdayCheckBox" destination="puO-Fm-L40" id="Dr7-OQ-xTw"/>
+                        <outlet property="saturdayMeal" destination="OPJ-lR-dSR" id="X85-re-MvO"/>
+                        <outlet property="saturdaySide" destination="Vdk-33-Hvt" id="CQs-Sa-D0j"/>
+                        <outlet property="sundayCheckBox" destination="ABG-OA-0CL" id="Zms-VB-mCA"/>
+                        <outlet property="sundayMeal" destination="KPd-Pn-KWs" id="QNQ-iG-CZK"/>
+                        <outlet property="sundaySide" destination="W53-HR-ts2" id="h8V-pf-L83"/>
+                        <outlet property="thursdayCheckBox" destination="Bau-eC-NrC" id="T8j-Wg-942"/>
+                        <outlet property="thursdayMeal" destination="BFu-Ep-OGH" id="WcG-pp-la8"/>
+                        <outlet property="thursdaySide" destination="BCo-6d-RyH" id="jK7-cL-qUS"/>
+                        <outlet property="tuesdayCheckBox" destination="3Kc-8H-972" id="wby-jo-Xah"/>
+                        <outlet property="tuesdayMeal" destination="4Wj-2m-nrF" id="BA1-pN-2Mh"/>
+                        <outlet property="tuesdaySide" destination="9g0-Hi-sts" id="vOu-Xv-L3y"/>
+                        <outlet property="wednesdayCheckBox" destination="Cb9-Sv-LWX" id="pwZ-im-sPi"/>
+                        <outlet property="wednesdayMeal" destination="99V-sj-FV2" id="OnP-0R-UV0"/>
+                        <outlet property="wednesdaySide" destination="jBI-bu-bUI" id="Zxh-HX-Jl9"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
