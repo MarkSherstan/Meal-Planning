@@ -12,7 +12,7 @@ import Foundation
 class Meals{
     
     func getMains() -> Array<String> {
-        let mains = ["Burgers", "Hot Dogs", "Cat Fish", "Hamburgers", "Pasta", "Pasta", "Veggies", "Salmon"];
+        let mains = ["Burgers", "Hot Dogs", "Cat Fish", "Hamburgers", "Pasta", "Pasta", "Veggies", "Salmon", "a", "b", "c", "d"];
         var uniqueMains = Array(Set(mains))
         uniqueMains.sort()
         uniqueMains.insert("---", at: 0)
@@ -20,7 +20,7 @@ class Meals{
     }
 
     func getSides() -> Array<String> {
-        let sides = ["Fries", "Gummy Worms", "Salad", "Beans", "Potatoes"];
+        let sides = ["Fries", "Gummy Worms", "Salad", "Beans", "Potatoes", "a", "b", "c", "d"];
         var uniqueSides = Array(Set(sides))
         uniqueSides.sort()
         uniqueSides.insert("---", at: 0)

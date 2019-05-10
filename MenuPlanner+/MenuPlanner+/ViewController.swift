@@ -13,7 +13,11 @@ class ViewController: NSViewController {
     // Load in Meals class
     var meals = Meals()
     
-    // Monday
+    // Make global counter
+//    var mealCounter = 7
+//    var sideCounter = 7
+    
+    // Outlets
     @IBOutlet weak var mondayMeal: NSPopUpButton!
     @IBOutlet weak var tuesdayMeal: NSPopUpButton!
     @IBOutlet weak var wednesdayMeal: NSPopUpButton!
@@ -41,7 +45,10 @@ class ViewController: NSViewController {
     @IBOutlet weak var mondayMealPast1: NSTextField!
     @IBOutlet weak var mondayMealPast2: NSTextField!
     @IBOutlet weak var mondayMealPast3: NSTextField!
-    @IBOutlet weak var mondayCheckBox: NSButton!
+    
+    //
+//    var arrayOfMealDays = [NSPopUpButton]()
+    
     
     // Do any additional setup after loading the view
     override func viewDidLoad() {
@@ -58,7 +65,7 @@ class ViewController: NSViewController {
         let idxSides = sidesCount.shuffled()
         
         //
-        arrayOfMealDays = [mondayMeal, tuesdayMeal, wednesdayMeal, thursdayMeal, fridayMeal, saturdayMeal, sundayMeal]
+//        arrayOfMealDays = [mondayMeal, tuesdayMeal, wednesdayMeal, thursdayMeal, fridayMeal, saturdayMeal, sundayMeal]
         
         // Populate the previous meals
         setUpPreviousMeals()
@@ -140,14 +147,46 @@ class ViewController: NSViewController {
     ////////////////////////////////////////////////////////////////////////////////////////
     
     @IBAction func randomizeMealsButton(_ sender: Any) {
-    
-        if mondayCheckBox.state == .on {
-            mondayMealPast1.stringValue = "Button On"
-        } else {
-            mondayMealPast1.stringValue = "Button Off"
-        }
-        mondayCheckBox.state = .off
+//        print("Hello World")
+//        let buttonResponse = [mondayCheckBox.state.rawValue, tuesdayCheckBox.state.rawValue, wednesdayCheckBox.state.rawValue,
+//                              thursdayCheckBox.state.rawValue, fridayCheckBox.state.rawValue, saturdayCheckBox.state.rawValue,
+//                              sundayCheckBox.state.rawValue]
+//
+//        var ii = 0
+//        for mains in arrayOfMealDays {
+//            if (buttonResponse[ii] == 1){
+////                print(idxMains)
+//                print(mealCounter)
+////                mains.selectItem(at: idxMains[mealCounter])
+//
+//                mealCounter += 1
+//            }
+//            ii += 1
+//        }
     }
+    
+    
+    @IBAction func swapMealsButton(_ sender: Any) {
+        let buttonResponse = [mondayCheckBox.state.rawValue, tuesdayCheckBox.state.rawValue, wednesdayCheckBox.state.rawValue,
+                              thursdayCheckBox.state.rawValue, fridayCheckBox.state.rawValue, saturdayCheckBox.state.rawValue,
+                              sundayCheckBox.state.rawValue]
+        
+//        let currentMains = [mondayMeal.titleOfSelectedItem]
+
+        if (buttonResponse.reduce(0, +) != 2 ) {
+            // Display error if not exactly 2 measls are selected
+            let alert = NSAlert()
+            alert.messageText = "Select Exactly 2 Meals to Swap"
+            alert.alertStyle = .warning
+            alert.addButton(withTitle: "OK")
+            alert.addButton(withTitle: "Cancel")
+            alert.runModal()
+            return
+        } else {
+            
+//            let idxA = buttonResponse.firstIndex(of: 1)
+//            let idxB = buttonResponse.lastIndex(of: 1)
+        }
 
         // Clear all the checkboxes
         clearCheckBoxes()

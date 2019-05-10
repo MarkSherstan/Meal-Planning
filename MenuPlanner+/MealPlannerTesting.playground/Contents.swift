@@ -95,4 +95,19 @@ outOut.0[2]
 outOut.1[outOut.1.count-2]
 
 
+
+
 //
+print(meals)
+
+var arr = [0, 0, 1, 1, 0, 0, 0]
+
+let idxA = arr.firstIndex(of: 1)
+let idxB = arr.lastIndex(of: 1)
+
+
+(uniqueMeals[0], uniqueMeals[1]) = (uniqueMeals[1], uniqueMeals[0])
+print(uniqueMeals[0...4])
+uniqueMeals
+
+
