@@ -9,14 +9,7 @@
 import Cocoa
 
 class ViewController: NSViewController {
-    
-    // Load in Meals class
-    var meals = Meals()
-    
-    // Make global counter
-//    var mealCounter = 7
-//    var sideCounter = 7
-    
+
     // Outlets
     @IBOutlet weak var mondayMeal: NSPopUpButton!
     @IBOutlet weak var tuesdayMeal: NSPopUpButton!
@@ -42,36 +35,19 @@ class ViewController: NSViewController {
     @IBOutlet weak var saturdayCheckBox: NSButton!
     @IBOutlet weak var sundayCheckBox: NSButton!
     
-    @IBOutlet weak var mondayMealPast1: NSTextField!
-    @IBOutlet weak var mondayMealPast2: NSTextField!
-    @IBOutlet weak var mondayMealPast3: NSTextField!
-    
-    //
-//    var arrayOfMealDays = [NSPopUpButton]()
-    
+    // Load in Meals class
+    var m = Meals()
+
+    // Make global counter
+    var mealCounter = 7
+    var sideCounter = 7
     
     // Do any additional setup after loading the view
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Get mains and sides
-        let mains = meals.getMains()
-        let sides = meals.getSides()
-        
-        // Randomize the order of the meals and sides
-        let mainsCount = 1...mains.count
-        let idxMains = mainsCount.shuffled()
-        let sidesCount = 1...sides.count
-        let idxSides = sidesCount.shuffled()
-        
-        //
-//        arrayOfMealDays = [mondayMeal, tuesdayMeal, wednesdayMeal, thursdayMeal, fridayMeal, saturdayMeal, sundayMeal]
-        
-        // Populate the previous meals
-        setUpPreviousMeals()
-        
         // Populate the pop up windows
-        setUpPopUpWindows(mains: mains, sides: sides, idxMains: idxMains, idxSides: idxSides)
+        setUpPopUpWindows(mains: m.mains, sides: m.sides, idxMains: m.idxMains, idxSides: m.idxSides)
     }
     
     // Update the view, if already loaded
@@ -84,6 +60,7 @@ class ViewController: NSViewController {
     ////////////////////////////////////////////////////////////////////////////////////////
     // Private Functions
     ////////////////////////////////////////////////////////////////////////////////////////
+    
     private func setUpPopUpWindows(mains: Array<String>, sides: Array<String>, idxMains: Array<Int>, idxSides: Array<Int>) {
         // Meals
         mondayMeal.removeAllItems();        mondayMeal.addItems(withTitles: mains)
@@ -120,18 +97,6 @@ class ViewController: NSViewController {
         sundaySide.selectItem(at: idxSides[6])
     }
     
-    
-    
-    private func setUpPreviousMeals() {
-        let previousMeals = meals.getPreviousMeals()
-        
-        mondayMealPast1.stringValue = previousMeals.0[previousMeals.0.count - 1]
-        mondayMealPast2.stringValue = previousMeals.0[previousMeals.0.count - 2]
-        mondayMealPast3.stringValue = previousMeals.0[previousMeals.0.count - 3]
-    }
-    
-   
-    
     private func clearCheckBoxes(){
         mondayCheckBox.state = .off
         tuesdayCheckBox.state = .off
@@ -142,27 +107,47 @@ class ViewController: NSViewController {
         sundayCheckBox.state = .off
     }
     
+    
     ////////////////////////////////////////////////////////////////////////////////////////
     // Buttons
     ////////////////////////////////////////////////////////////////////////////////////////
     
     @IBAction func randomizeMealsButton(_ sender: Any) {
-//        print("Hello World")
-//        let buttonResponse = [mondayCheckBox.state.rawValue, tuesdayCheckBox.state.rawValue, wednesdayCheckBox.state.rawValue,
-//                              thursdayCheckBox.state.rawValue, fridayCheckBox.state.rawValue, saturdayCheckBox.state.rawValue,
-//                              sundayCheckBox.state.rawValue]
-//
-//        var ii = 0
-//        for mains in arrayOfMealDays {
-//            if (buttonResponse[ii] == 1){
-////                print(idxMains)
-//                print(mealCounter)
-////                mains.selectItem(at: idxMains[mealCounter])
-//
-//                mealCounter += 1
-//            }
-//            ii += 1
-//        }
+        // Reference buttons and get check box states
+        let arrayOfMealDays = [mondayMeal, tuesdayMeal, wednesdayMeal, thursdayMeal, fridayMeal, saturdayMeal, sundayMeal]
+
+        let buttonResponse = [mondayCheckBox.state.rawValue, tuesdayCheckBox.state.rawValue, wednesdayCheckBox.state.rawValue,
+                              thursdayCheckBox.state.rawValue, fridayCheckBox.state.rawValue, saturdayCheckBox.state.rawValue,
+                              sundayCheckBox.state.rawValue]
+       
+        // Set up a counter and begin the loop
+        var ii = 0
+        for mealz in arrayOfMealDays {
+            
+            // Display error if out of randomized meal choices
+            if (mealCounter >= m.mains.count){
+                let alert = NSAlert()
+                alert.messageText = "Out of random meal selections"
+                alert.alertStyle = .warning
+                alert.addButton(withTitle: "OK")
+                alert.addButton(withTitle: "Cancel")
+                alert.runModal()
+                clearCheckBoxes()
+                return
+            }
+            
+            // Check the check box and update accordingly
+            if (buttonResponse[ii] == 1){
+                mealz?.selectItem(at: m.idxMains[mealCounter])
+                mealCounter += 1
+            }
+            
+            // Increase counter
+            ii += 1
+        }
+        
+        // Clear all the checkboxes when done
+        clearCheckBoxes()
     }
     
     
@@ -194,6 +179,41 @@ class ViewController: NSViewController {
     
     
     @IBAction func randomizeSidesButton(_ sender: Any) {
+        // Reference buttons and get check box states
+        let arrayOfSideDays = [mondaySide, tuesdaySide, wednesdaySide, thursdaySide, fridaySide, saturdaySide, sundaySide]
+        
+        let buttonResponse = [mondayCheckBox.state.rawValue, tuesdayCheckBox.state.rawValue, wednesdayCheckBox.state.rawValue,
+                              thursdayCheckBox.state.rawValue, fridayCheckBox.state.rawValue, saturdayCheckBox.state.rawValue,
+                              sundayCheckBox.state.rawValue]
+        
+        // Set up a counter and begin the loop
+        var ii = 0
+        for sidez in arrayOfSideDays {
+            
+            // Display error if out of randomized side choices
+            if (sideCounter >= m.sides.count){
+                let alert = NSAlert()
+                alert.messageText = "Out of random side selections"
+                alert.alertStyle = .warning
+                alert.addButton(withTitle: "OK")
+                alert.addButton(withTitle: "Cancel")
+                alert.runModal()
+                clearCheckBoxes()
+                return
+            }
+            
+            // Check the check box and update accordingly
+            if (buttonResponse[ii] == 1){
+                sidez?.selectItem(at: m.idxSides[sideCounter])
+                sideCounter += 1
+            }
+            
+            // Increase counter
+            ii += 1
+        }
+        
+        // Clear all the checkboxes when done
+        clearCheckBoxes()
     }
     
     
