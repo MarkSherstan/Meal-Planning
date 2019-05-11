@@ -10,22 +10,25 @@ import Foundation
 
 
 class Meals{
+    var mains: Array<String>
+    var idxMains: Array<Int>
+    var sides: Array<String>
+    var idxSides: Array<Int>
     
-    func getMains() -> Array<String> {
-        let mains = ["Burgers", "Hot Dogs", "Cat Fish", "Hamburgers", "Pasta", "Pasta", "Veggies", "Salmon", "a", "b", "c", "d"];
-        var uniqueMains = Array(Set(mains))
-        uniqueMains.sort()
-        uniqueMains.insert("---", at: 0)
-        return uniqueMains
-    }
-
-    func getSides() -> Array<String> {
-        let sides = ["Fries", "Gummy Worms", "Salad", "Beans", "Potatoes", "a", "b", "c", "d"];
-        var uniqueSides = Array(Set(sides))
-        uniqueSides.sort()
-        uniqueSides.insert("---", at: 0)
-        return uniqueSides
+    init() {
+        mains = ["Burgers", "Hot Dogs", "Cat Fish", "Hamburgers", "Pasta", "Pasta", "Veggies", "Salmon", "a", "b", "c", "d"]
+        mains = Array(Set(mains))
+        mains.sort()
+        mains.insert("---", at: 0)
+        
+        idxMains = (1...mains.count).shuffled()
+        
+        sides = ["Fries", "Gummy Worms", "Salad", "Beans", "Potatoes", "a", "b", "c", "d"]
+        sides = Array(Set(sides))
+        sides.sort()
+        sides.insert("---", at: 0)
+        
+        idxSides = (1...sides.count).shuffled()
     }
     
 }
-
