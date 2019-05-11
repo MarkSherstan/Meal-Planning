@@ -127,7 +127,7 @@ class ViewController: NSViewController {
             // Display error if out of randomized meal choices
             if (mealCounter >= m.mains.count){
                 let alert = NSAlert()
-                alert.messageText = "Out of random meal selections"
+                alert.messageText = "Out of Random Meal Selections"
                 alert.alertStyle = .warning
                 alert.addButton(withTitle: "OK")
                 alert.addButton(withTitle: "Cancel")
@@ -152,25 +152,35 @@ class ViewController: NSViewController {
     
     
     @IBAction func swapMealsButton(_ sender: Any) {
+        // Reference buttons and get check box states
+        let arrayOfMealDays = [mondayMeal, tuesdayMeal, wednesdayMeal, thursdayMeal, fridayMeal, saturdayMeal, sundayMeal]
+
         let buttonResponse = [mondayCheckBox.state.rawValue, tuesdayCheckBox.state.rawValue, wednesdayCheckBox.state.rawValue,
                               thursdayCheckBox.state.rawValue, fridayCheckBox.state.rawValue, saturdayCheckBox.state.rawValue,
                               sundayCheckBox.state.rawValue]
         
-//        let currentMains = [mondayMeal.titleOfSelectedItem]
-
         if (buttonResponse.reduce(0, +) != 2 ) {
-            // Display error if not exactly 2 measls are selected
+            // Display error if not exactly 2 meals are selected
             let alert = NSAlert()
             alert.messageText = "Select Exactly 2 Meals to Swap"
             alert.alertStyle = .warning
             alert.addButton(withTitle: "OK")
             alert.addButton(withTitle: "Cancel")
             alert.runModal()
+            clearCheckBoxes()
             return
         } else {
+            // Find the 2 days of interest
+            let idxA = buttonResponse.firstIndex(of: 1)!
+            let idxB = buttonResponse.lastIndex(of: 1)!
             
-//            let idxA = buttonResponse.firstIndex(of: 1)
-//            let idxB = buttonResponse.lastIndex(of: 1)
+            // Find index value for specific meal
+            let idxC = arrayOfMealDays[idxA]!.indexOfSelectedItem
+            let idxD = arrayOfMealDays[idxB]!.indexOfSelectedItem
+
+            // Swap meals
+            arrayOfMealDays[idxA]!.selectItem(at: idxD)
+            arrayOfMealDays[idxB]!.selectItem(at: idxC)
         }
 
         // Clear all the checkboxes
@@ -193,7 +203,7 @@ class ViewController: NSViewController {
             // Display error if out of randomized side choices
             if (sideCounter >= m.sides.count){
                 let alert = NSAlert()
-                alert.messageText = "Out of random side selections"
+                alert.messageText = "Out of Random Side Selections"
                 alert.alertStyle = .warning
                 alert.addButton(withTitle: "OK")
                 alert.addButton(withTitle: "Cancel")
@@ -218,8 +228,40 @@ class ViewController: NSViewController {
     
     
     @IBAction func swapSidesButton(_ sender: Any) {
+        // Reference buttons and get check box states
+        let arrayOfSideDays = [mondaySide, tuesdaySide, wednesdaySide, thursdaySide, fridaySide, saturdaySide, sundaySide]
+        
+        let buttonResponse = [mondayCheckBox.state.rawValue, tuesdayCheckBox.state.rawValue, wednesdayCheckBox.state.rawValue,
+                              thursdayCheckBox.state.rawValue, fridayCheckBox.state.rawValue, saturdayCheckBox.state.rawValue,
+                              sundayCheckBox.state.rawValue]
+        
+        if (buttonResponse.reduce(0, +) != 2 ) {
+            // Display error if not exactly 2 sides are selected
+            let alert = NSAlert()
+            alert.messageText = "Select Exactly 2 Sides to Swap"
+            alert.alertStyle = .warning
+            alert.addButton(withTitle: "OK")
+            alert.addButton(withTitle: "Cancel")
+            alert.runModal()
+            clearCheckBoxes()
+            return
+        } else {
+            // Find the 2 days of interest
+            let idxA = buttonResponse.firstIndex(of: 1)!
+            let idxB = buttonResponse.lastIndex(of: 1)!
+            
+            // Find index value for specific meal
+            let idxC = arrayOfSideDays[idxA]!.indexOfSelectedItem
+            let idxD = arrayOfSideDays[idxB]!.indexOfSelectedItem
+            
+            // Swap sides
+            arrayOfSideDays[idxA]!.selectItem(at: idxD)
+            arrayOfSideDays[idxB]!.selectItem(at: idxC)
+        }
+        
+        // Clear all the checkboxes
+        clearCheckBoxes()
     }
-    
     
 }
 
