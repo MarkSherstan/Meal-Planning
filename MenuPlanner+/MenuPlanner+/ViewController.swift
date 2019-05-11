@@ -124,20 +124,22 @@ class ViewController: NSViewController {
         var ii = 0
         for mealz in arrayOfMealDays {
             
-            // Display error if out of randomized meal choices
-            if (mealCounter >= m.mains.count){
-                let alert = NSAlert()
-                alert.messageText = "Out of Random Meal Selections"
-                alert.alertStyle = .warning
-                alert.addButton(withTitle: "OK")
-                alert.addButton(withTitle: "Cancel")
-                alert.runModal()
-                clearCheckBoxes()
-                return
-            }
-            
             // Check the check box and update accordingly
             if (buttonResponse[ii] == 1){
+                
+                // Display error if out of randomized meal choices
+                if (mealCounter == m.idxMains.count){
+                    let alert = NSAlert()
+                    alert.messageText = "Out of Random Meal Selections"
+                    alert.alertStyle = .warning
+                    alert.addButton(withTitle: "OK")
+                    alert.addButton(withTitle: "Cancel")
+                    alert.runModal()
+                    clearCheckBoxes()
+                    return
+                }
+                
+                // Update the random main
                 mealz?.selectItem(at: m.idxMains[mealCounter])
                 mealCounter += 1
             }
@@ -200,20 +202,22 @@ class ViewController: NSViewController {
         var ii = 0
         for sidez in arrayOfSideDays {
             
-            // Display error if out of randomized side choices
-            if (sideCounter >= m.sides.count){
-                let alert = NSAlert()
-                alert.messageText = "Out of Random Side Selections"
-                alert.alertStyle = .warning
-                alert.addButton(withTitle: "OK")
-                alert.addButton(withTitle: "Cancel")
-                alert.runModal()
-                clearCheckBoxes()
-                return
-            }
-            
             // Check the check box and update accordingly
             if (buttonResponse[ii] == 1){
+                
+                // Display error if out of randomized side choices
+                if (sideCounter >= m.sides.count){
+                    let alert = NSAlert()
+                    alert.messageText = "Out of Random Side Selections"
+                    alert.alertStyle = .warning
+                    alert.addButton(withTitle: "OK")
+                    alert.addButton(withTitle: "Cancel")
+                    alert.runModal()
+                    clearCheckBoxes()
+                    return
+                }
+                
+                // Update the random side
                 sidez?.selectItem(at: m.idxSides[sideCounter])
                 sideCounter += 1
             }
