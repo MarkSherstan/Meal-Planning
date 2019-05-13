@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import Cocoa
 
 class Meals{
     var mains: Array<String>
@@ -31,4 +31,45 @@ class Meals{
         idxSides = (1...sides.count-1).shuffled()
     }
     
+    
+    func updateData(filepath: String){
+        // Check on the filepath the user provided
+        if (filepath.isEmpty == false){
+            do {
+                // User provided good data, set up the extraction
+                let query = try String(contentsOfFile: filepath)
+                let regex = try! NSRegularExpression(pattern:"<h2 itemprop=\"name\">(.*?)</h2>", options: [])
+                var results = [String]()
+                
+                // Extract the meal names
+                regex.enumerateMatches(in: query, options: [], range: NSMakeRange(0, query.utf16.count)) { result, flags, stop in
+                    if let r = result?.range(at: 1), let range = Range(r, in: query) {
+                        results.append(String(query[range]))
+                    }
+                }
+                
+                // Update the class
+                mains = results
+              
+            } catch {
+                // Contents could not be loaded
+                let alert = NSAlert()
+                alert.messageText = "Contents Could Not Be Loaded"
+                alert.alertStyle = .warning
+                alert.addButton(withTitle: "OK")
+                alert.addButton(withTitle: "Cancel")
+                alert.runModal()
+            }
+            
+        } else {
+            // File not found!
+            let alert = NSAlert()
+            alert.messageText = "File Not Found"
+            alert.alertStyle = .warning
+            alert.addButton(withTitle: "OK")
+            alert.addButton(withTitle: "Cancel")
+            alert.runModal()
+        }
+    }
+
 }

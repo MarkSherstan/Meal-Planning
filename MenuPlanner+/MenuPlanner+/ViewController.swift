@@ -107,10 +107,55 @@ class ViewController: NSViewController {
         sundayCheckBox.state = .off
     }
     
+    private func getFilePath() -> String {
+        // Get NSOpenPanel
+        let dialog = NSOpenPanel();
+        
+        // Set the parameters
+        dialog.title                   = "Choose a .html file";
+        dialog.showsResizeIndicator    = true;
+        dialog.showsHiddenFiles        = false;
+        dialog.canChooseDirectories    = true;
+        dialog.canCreateDirectories    = true;
+        dialog.allowsMultipleSelection = false;
+        dialog.allowedFileTypes        = ["html"];
+        
+        // Check what the user selected
+        if (dialog.runModal() == NSApplication.ModalResponse.OK) {
+            
+            // Do some URL checks and hopefully return a result
+            let result = dialog.url?.path
+                if (result != nil) {
+                    return result!
+                }
+            } else {
+            
+            // User clicked "Cancel" return empty
+            let result: String! = ""
+            return result
+            }
+        
+        // Something failed in runModal return empty
+        let result: String! = ""
+        return result
+    }
+    
     
     ////////////////////////////////////////////////////////////////////////////////////////
     // Buttons
     ////////////////////////////////////////////////////////////////////////////////////////
+
+    @IBAction func getExternalData(_ sender: Any) {
+        // Get the file path
+        let path = getFilePath()
+        
+        // Update meal class with the new data
+        m.updateData(filepath: path)
+        
+        // Re-populate the pop up windows
+        setUpPopUpWindows(mains: m.mains, sides: m.sides, idxMains: m.idxMains, idxSides: m.idxSides)
+    }
+    
     
     @IBAction func randomizeMealsButton(_ sender: Any) {
         // Reference buttons and get check box states
@@ -206,7 +251,7 @@ class ViewController: NSViewController {
             if (buttonResponse[ii] == 1){
                 
                 // Display error if out of randomized side choices
-                if (sideCounter >= m.sides.count){
+                if (sideCounter == m.idxSides.count){
                     let alert = NSAlert()
                     alert.messageText = "Out of Random Side Selections"
                     alert.alertStyle = .warning
