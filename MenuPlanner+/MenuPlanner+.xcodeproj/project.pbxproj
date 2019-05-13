@@ -14,6 +14,7 @@
 		1D0C99A721F69FED00768016 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D0C99A521F69FED00768016 /* Main.storyboard */; };
 		1D0C99B321F69FED00768016 /* MenuPlanner_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C99B221F69FED00768016 /* MenuPlanner_Tests.swift */; };
 		1D0C99BE21F69FED00768016 /* MenuPlanner_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C99BD21F69FED00768016 /* MenuPlanner_UITests.swift */; };
+		1D72EDC522893D5F006A1A92 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1D72EDC422893D5E006A1A92 /* README.md */; };
 		1D86F8CC21FA800E00C11B1E /* Meals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D86F8CB21FA800E00C11B1E /* Meals.swift */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +50,7 @@
 		1D0C99B921F69FED00768016 /* MenuPlanner+UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MenuPlanner+UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D0C99BD21F69FED00768016 /* MenuPlanner_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPlanner_UITests.swift; sourceTree = "<group>"; };
 		1D0C99BF21F69FED00768016 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1D72EDC422893D5E006A1A92 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		1D86F8CB21FA800E00C11B1E /* Meals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meals.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,6 +86,7 @@
 				1D0C99B121F69FED00768016 /* MenuPlanner+Tests */,
 				1D0C99BC21F69FED00768016 /* MenuPlanner+UITests */,
 				1D0C999A21F69FEC00768016 /* Products */,
+				1D72EDC422893D5E006A1A92 /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -237,6 +240,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D72EDC522893D5F006A1A92 /* README.md in Resources */,
 				1D0C99A421F69FED00768016 /* Assets.xcassets in Resources */,
 				1D0C99A721F69FED00768016 /* Main.storyboard in Resources */,
 			);
