@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D019F4C228E0E1600C5F932 /* Logo.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1D019F4B228E0E1600C5F932 /* Logo.icns */; };
 		1D0C999D21F69FEC00768016 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C999C21F69FEC00768016 /* AppDelegate.swift */; };
 		1D0C999F21F69FEC00768016 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C999E21F69FEC00768016 /* ViewController.swift */; };
 		1D0C99A221F69FEC00768016 /* MenuPlanner_.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1D0C99A021F69FEC00768016 /* MenuPlanner_.xcdatamodeld */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D019F4B228E0E1600C5F932 /* Logo.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Logo.icns; sourceTree = "<group>"; };
 		1D0C999921F69FEC00768016 /* MenuPlanner+.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MenuPlanner+.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D0C999C21F69FEC00768016 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1D0C999E21F69FEC00768016 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				1D0C99A321F69FED00768016 /* Assets.xcassets */,
 				1D0C99A521F69FED00768016 /* Main.storyboard */,
 				1D0C99A821F69FED00768016 /* Info.plist */,
+				1D019F4B228E0E1600C5F932 /* Logo.icns */,
 				1D0C99A921F69FED00768016 /* MenuPlanner_.entitlements */,
 				1D0C99A021F69FEC00768016 /* MenuPlanner_.xcdatamodeld */,
 			);
@@ -241,6 +244,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D72EDC522893D5F006A1A92 /* README.md in Resources */,
+				1D019F4C228E0E1600C5F932 /* Logo.icns in Resources */,
 				1D0C99A421F69FED00768016 /* Assets.xcassets in Resources */,
 				1D0C99A721F69FED00768016 /* Main.storyboard in Resources */,
 			);
