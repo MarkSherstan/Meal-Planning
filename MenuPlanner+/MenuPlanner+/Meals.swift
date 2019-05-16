@@ -38,11 +38,11 @@ class Meals{
             do {
                 // User provided good data, set up the extraction
                 let query = try String(contentsOfFile: filepath)
-                let results = filterData(delimiter: "<h2 itemprop=\"name\">(.*?)</h2>", query: query)
+                let food = filterData(delimiter: "<h2 itemprop=\"name\">(.*?)</h2>", query: query)
+                let course = filterData(delimiter: "<span itemprop=\"recipeCourse\">(.*?)</span>", query: query)
                 
-                // Update the class
-                mains = results
-                print(results.count)
+                // Sort sides and mains and then update the class
+                sortData(food: food, course: course)
                 
             } catch {
                 // Contents could not be loaded
@@ -67,6 +67,7 @@ class Meals{
     
     
     func filterData(delimiter: String, query: String) -> Array<String> {
+        // Set up regex and allocate results
         let regex = try! NSRegularExpression(pattern: delimiter, options: [])
         var results = [String]()
         
@@ -78,6 +79,26 @@ class Meals{
         }
         
         return results
+    }
+    
+    
+    func sortData(food: Array<String>, course: Array<String>) {
+        // Pre allocate the mains and sides
+        var MAINS = [String]()
+        var SIDES = [String]()
+        
+        // Sort out the mains and sides
+        for (a, b) in zip(food, course){
+            if b == "Main Dish" {
+                MAINS.append(a)
+            } else if b == "Side Dish" {
+                SIDES.append(a)
+            }
+        }
+        
+        // Update the class
+        mains = MAINS
+        sides = SIDES
     }
 
 }
