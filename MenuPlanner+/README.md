@@ -4,6 +4,8 @@ Update from the initial Python app. Recipes and ingredients are stored in [Recip
 ## Install
 Download the most recent [release](https://github.com/MarkSherstan/Meal-Planning/releases) and run!
 
+To add the logo, right click on the app and select `get info`. Download the logo from [here](https://github.com/MarkSherstan/Meal-Planning/blob/master/MenuPlanner%2B/MenuPlanner%2B/Logo.icns) and drag on drop the downloaded logo in the top left of the "get info" screen. 
+
 ## Use
 To get your recipes open Recipe Keeper on a computer and follow these steps:
 1. Select `Settings` in the bottom left hand corner
