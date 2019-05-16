@@ -38,19 +38,12 @@ class Meals{
             do {
                 // User provided good data, set up the extraction
                 let query = try String(contentsOfFile: filepath)
-                let regex = try! NSRegularExpression(pattern:"<h2 itemprop=\"name\">(.*?)</h2>", options: [])
-                var results = [String]()
-                
-                // Extract the meal names
-                regex.enumerateMatches(in: query, options: [], range: NSMakeRange(0, query.utf16.count)) { result, flags, stop in
-                    if let r = result?.range(at: 1), let range = Range(r, in: query) {
-                        results.append(String(query[range]))
-                    }
-                }
+                let results = filterData(delimiter: "<h2 itemprop=\"name\">(.*?)</h2>", query: query)
                 
                 // Update the class
                 mains = results
-              
+                print(results.count)
+                
             } catch {
                 // Contents could not be loaded
                 let alert = NSAlert()
@@ -70,6 +63,21 @@ class Meals{
             alert.addButton(withTitle: "Cancel")
             alert.runModal()
         }
+    }
+    
+    
+    func filterData(delimiter: String, query: String) -> Array<String> {
+        let regex = try! NSRegularExpression(pattern: delimiter, options: [])
+        var results = [String]()
+        
+        // Extract the meal names
+        regex.enumerateMatches(in: query, options: [], range: NSMakeRange(0, query.utf16.count)) { result, flags, stop in
+            if let r = result?.range(at: 1), let range = Range(r, in: query) {
+                results.append(String(query[range]))
+            }
+        }
+        
+        return results
     }
 
 }
