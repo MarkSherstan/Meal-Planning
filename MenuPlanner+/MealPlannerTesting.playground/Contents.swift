@@ -108,7 +108,7 @@ for word in str{
 let filepath = "///Users/MarkSherstan/Desktop/dog.html"
 do {
     let query = try String(contentsOfFile: filepath)
-    let regex = try! NSRegularExpression(pattern:"<h2 itemprop=\"name\">(.*?)</h2>", options: [])
+    let regex = try! NSRegularExpression(pattern:"<h2 itemprop=\"name\">(.*?)</span>", options: [])
     var results = [String]()
     
     regex.enumerateMatches(in: query, options: [], range: NSMakeRange(0, query.utf16.count)) { result, flags, stop in
@@ -122,4 +122,3 @@ do {
     //
     print("contents could not be loaded")
 }
-

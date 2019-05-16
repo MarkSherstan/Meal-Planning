@@ -16,19 +16,11 @@ class Meals{
     var idxSides: Array<Int>
     
     init() {
-        mains = [ "a", "b", "c", "d", "e", "f", "g", "h", "i"]
-        mains = Array(Set(mains))
-        mains.sort()
-        mains.insert("---", at: 0)
-        
-        idxMains = (1...mains.count-1).shuffled()
-        
-        sides = ["Fries", "Gummy Worms", "Salad", "Beans", "Potatoes", "nachos", "cookies", "pancakes"]
-        sides = Array(Set(sides))
-        sides.sort()
-        sides.insert("---", at: 0)
-        
-        idxSides = (1...sides.count-1).shuffled()
+        // Set all drop downs to nothing until the user loads some data
+        mains = [""]
+        idxMains = [0, 0, 0, 0, 0, 0, 0]
+        sides = [""]
+        idxSides = [0, 0, 0, 0, 0, 0, 0]
     }
     
     
@@ -55,7 +47,7 @@ class Meals{
             }
             
         } else {
-            // File not found!
+            // File not found
             let alert = NSAlert()
             alert.messageText = "File Not Found"
             alert.alertStyle = .warning
@@ -78,6 +70,7 @@ class Meals{
             }
         }
         
+        // Return the results
         return results
     }
     
@@ -97,8 +90,15 @@ class Meals{
         }
         
         // Update the class
-        mains = MAINS
-        sides = SIDES
+        mains = Array(Set(MAINS))
+        mains.sort()
+        mains.insert("---", at: 0)
+        idxMains = (1...mains.count-1).shuffled()
+        
+        sides = Array(Set(SIDES))
+        sides.sort()
+        sides.insert("---", at: 0)
+        idxSides = (1...sides.count-1).shuffled()
     }
 
 }

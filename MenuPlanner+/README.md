@@ -1,6 +1,6 @@
 ## To Do
-- [ ] Load meals and sides seperate
-- [ ] Remove test data
+- [x] Load meals and sides seperate
+- [x] Remove test data
 - [ ] Filter data (some of the HTML looks odd)
 - [ ] Release V1.0 binary and merge branch
 
