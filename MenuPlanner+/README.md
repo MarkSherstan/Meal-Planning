@@ -1,9 +1,3 @@
-## To Do
-- [x] Load meals and sides seperate
-- [x] Remove test data
-- [ ] Filter data (some of the HTML looks odd)
-- [ ] Release V1.0 binary and merge branch
-
 ## Helpful Links
 * [Dev Docs](https://developer.apple.com/documentation)
 * [Xcode App Tutorial](https://www.raywenderlich.com/731-macos-development-for-beginners-part-1)

@@ -10,6 +10,7 @@ import Foundation
 import Cocoa
 
 class Meals{
+    // Set data types
     var mains: Array<String>
     var idxMains: Array<Int>
     var sides: Array<String>

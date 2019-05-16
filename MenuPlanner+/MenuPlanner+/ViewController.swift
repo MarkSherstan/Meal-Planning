@@ -9,7 +9,6 @@
 import Cocoa
 
 class ViewController: NSViewController {
-
     // Outlets
     @IBOutlet weak var mondayMeal: NSPopUpButton!
     @IBOutlet weak var tuesdayMeal: NSPopUpButton!
@@ -46,7 +45,7 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Populate the pop up windows
+        // Populate the pop up windows with nothing
         setUpPopUpWindows(mains: m.mains, sides: m.sides, idxMains: m.idxMains, idxSides: m.idxSides)
     }
     
@@ -135,7 +134,7 @@ class ViewController: NSViewController {
             return result
             }
         
-        // Something failed in runModal return empty
+        // Something failed in runModal, return empty
         let result: String! = ""
         return result
     }
